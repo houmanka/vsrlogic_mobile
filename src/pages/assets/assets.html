@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>Assets</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-item 
+        (click)="navigate(item)"
+        detail lines="full" *ngFor="let item of assets" >
+          <ion-label>
+            {{item.asset_name}}
+          </ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>
