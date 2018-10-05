@@ -1,3 +1,9 @@
+import { NotesPage } from './../pages/notes/notes';
+import { TasksPage } from './../pages/tasks/tasks';
+import { DocumentsPage } from './../pages/documents/documents';
+import { AssetTabsPage } from './../pages/asset-tabs/asset-tabs';
+import { LoginPageModule } from './../pages/login/login.module';
+import { SubAssetsPageModule } from './../pages/sub-assets/sub-assets.module';
 import { ApiService } from './services/api.service';
 import { NotificationService } from './services/notification.service';
 import { AssetsPage } from './../pages/assets/assets';
@@ -13,17 +19,25 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TransfereService } from './services/transfer.service';
 import { HttpClientModule } from '@angular/common/http';
+import { HistoryPage } from '../pages/history/history';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
-    AssetsPage
+    AssetsPage,
+    DocumentsPage,
+    TasksPage,
+    NotesPage,
+    HistoryPage,
+    AssetTabsPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    SubAssetsPageModule,
+    LoginPageModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -31,7 +45,12 @@ import { HttpClientModule } from '@angular/common/http';
     MyApp,
     HomePage,
     ListPage,
-    AssetsPage
+    AssetsPage,
+    AssetTabsPage,
+    DocumentsPage,
+    TasksPage,
+    NotesPage,
+    HistoryPage,
   ],
   providers: [
     StatusBar,

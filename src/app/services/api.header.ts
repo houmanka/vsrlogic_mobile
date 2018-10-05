@@ -1,5 +1,5 @@
 import { StorageService } from './storage.service';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Headers } from '@angular/http';
 
 export class ApiHeader {
 

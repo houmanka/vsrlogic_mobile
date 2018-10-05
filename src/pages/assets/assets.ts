@@ -1,3 +1,5 @@
+import { AssetTabsPage } from './../asset-tabs/asset-tabs';
+import { SubAssetsPage } from './../sub-assets/sub-assets';
 import { ApiService } from './../../app/services/api.service';
 import { NotificationService } from './../../app/services/notification.service';
 import { TransfereService } from './../../app/services/transfer.service';
@@ -44,6 +46,7 @@ export class AssetsPage {
     console.log(item);
     this.transfereService.setData(item);
     // this.navCtrl.push('sub_asset');
+    this.navCtrl.push(AssetTabsPage);
   }
 
 }
