@@ -44,7 +44,6 @@ export class SubAssetsPage {
       this.assets = []
     }
       this.title = viewTitle;
-      
     // }
   }
 

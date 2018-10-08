@@ -1,3 +1,22 @@
+<ion-header>
+    <ion-toolbar text-center>
+      <ion-title>{{title}}</ion-title>
+    </ion-toolbar>
+    <ion-toolbar>
+        <button ion-button >
+            <ion-icon name="arrow-back"></ion-icon>
+        </button>
+        <button ion-button (click)="home()">
+            <ion-icon name="home"></ion-icon>
+        </button>
+        <button ion-button (click)="dashboard()" >
+            <ion-icon name="analytics"></ion-icon>
+        </button>
+        <button ion-button >
+            <ion-icon name="apps"></ion-icon>
+        </button>
+      </ion-toolbar>
+</ion-header>
 <ion-tabs>
     <ion-tab
     *ngFor="let item of tabs" 

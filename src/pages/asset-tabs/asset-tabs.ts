@@ -1,3 +1,7 @@
+import { HomePage } from './../home/home';
+import { AssetsPage } from './../assets/assets';
+import { UtilService } from './../../app/services/util.service';
+import { TransfereService } from './../../app/services/transfer.service';
 import { TasksPage } from './../tasks/tasks';
 import { SubAssetsPage } from './../sub-assets/sub-assets';
 import { NotesPage } from './../notes/notes';
@@ -19,19 +23,41 @@ import { IonicPage, NavController, NavParams, Navbar } from 'ionic-angular';
 })
 export class AssetTabsPage {
   @ViewChild(Navbar) navBar: Navbar;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public title;
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    private transfereService: TransfereService
+    ) {
   }
 
   public tabs = [
+    {page: SubAssetsPage, title: 'Sub Assets', icon: 'home'},
     {page: DocumentsPage, title: 'Documents', icon: 'document'},
     {page: TasksPage, title: 'Tasks', icon: 'list'},
     {page: NotesPage, title: 'Notes', icon: 'text'},
-    {page: SubAssetsPage, title: 'Sub Assets', icon: 'home'},
   ]
 
   ionViewDidLoad() {
+    const currentAsset = this.transfereService.getData();
+    let viewTitle;
+    if (UtilService.empty(currentAsset)) {
+      viewTitle = 'Sub Assets'
+    } else {
+      viewTitle = currentAsset.asset_name;
+    }
+      this.title = viewTitle;
+  }
 
+  ionViewWillEnter(){
+   
+  }
+
+  home() {
+    this.navCtrl.push(AssetsPage);
+  }
+
+  dashboard() {
+    this.navCtrl.push(HomePage);
   }
   
 

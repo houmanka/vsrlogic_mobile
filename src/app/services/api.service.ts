@@ -25,7 +25,7 @@ export class ApiService {
 
     return httpOptions;
   }
-
+ 
   login(data: DataStructure) {
     return this.http.post(APPCONFIG.apiUrl + '/auths', data.data);
   }
@@ -38,6 +38,11 @@ export class ApiService {
   subAssets(item) {
     const headers = this.headers();
     return this.http.get(APPCONFIG.apiUrl + `/assets/${item.asset_id}/children`, headers);
+  }
+
+  documents(item) {
+    const headers = this.headers();
+    return this.http.get(APPCONFIG.apiUrl + `/documents?asset_id=${item.asset_id}`, headers);
   }
 
 

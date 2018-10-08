@@ -1,3 +1,4 @@
+import { DocumentDetailsPage } from './../pages/document-details/document-details';
 import { NotesPage } from './../pages/notes/notes';
 import { TasksPage } from './../pages/tasks/tasks';
 import { DocumentsPage } from './../pages/documents/documents';
@@ -20,6 +21,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TransfereService } from './services/transfer.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HistoryPage } from '../pages/history/history';
+import { FileOpener } from '@ionic-native/file-opener'
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { HistoryPage } from '../pages/history/history';
     TasksPage,
     NotesPage,
     HistoryPage,
-    AssetTabsPage
+    AssetTabsPage,
+    DocumentDetailsPage,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +54,7 @@ import { HistoryPage } from '../pages/history/history';
     TasksPage,
     NotesPage,
     HistoryPage,
+    DocumentDetailsPage
   ],
   providers: [
     StatusBar,
@@ -58,6 +62,7 @@ import { HistoryPage } from '../pages/history/history';
     TransfereService,
     NotificationService,
     ApiService,
+    FileOpener,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

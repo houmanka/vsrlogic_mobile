@@ -1,18 +1,13 @@
 <ion-header>
-
-    <ion-navbar>
-      <button ion-button icon-only class="force-back-button">
-        <ion-icon name="arrow-back"></ion-icon>
-      </button>
-  
-      <ion-title text-center>
-        Page Title
-      </ion-title>
-  
-    
-    </ion-navbar>
-  
-  </ion-header>
-<ion-content padding>
-
-</ion-content>
+    <ion-toolbar text-center>
+      </ion-toolbar>
+      <ion-toolbar>
+        </ion-toolbar>
+</ion-header>
+<ion-content padding>		
+      <div class="image__grid">		
+        <div class="image__square" *ngFor="let image of documents; let i = index" (click)="openPhoto(i)">
+          <img [src]="rootAddress+image.data.thumbnail" />				
+        </div>			
+      </div>		
+  </ion-content>

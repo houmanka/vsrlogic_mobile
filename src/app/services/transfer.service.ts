@@ -11,7 +11,7 @@ export class TransfereService {
 
   getData() {
     const temp = this.data;
-    this.clearData();
+    // this.clearData();
     return temp;
   }
 
