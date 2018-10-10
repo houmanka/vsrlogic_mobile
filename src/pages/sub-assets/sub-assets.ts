@@ -3,8 +3,9 @@ import { ApiService } from './../../app/services/api.service';
 import { TransfereService } from './../../app/services/transfer.service';
 import { UtilService } from './../../app/services/util.service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { Subscription } from 'rxjs/Subscription';
+
 
 /**
  * Generated class for the SubAssetsPage page.
@@ -21,9 +22,9 @@ import { Subscription } from 'rxjs/Subscription';
 export class SubAssetsPage {
   public assets = [];
   public currentAsset;
-  public title;
   private subAssetSubs = new Subscription();
-
+  public title;
+  
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -33,18 +34,27 @@ export class SubAssetsPage {
     ) {
   }
 
-  ionViewDidLoad() {
+ 
+
+  ionViewDidLoad(){
+    console.log("I AM TRIGGERED")
     const currentAsset = this.transfereService.getData();
-    let viewTitle;
-    if (UtilService.empty(currentAsset)) {
-      viewTitle = 'Sub Assets'
-    } else {
-      viewTitle = currentAsset.asset_name;
+    this.setTitle(currentAsset);
+    // this.transfereService.clearData();
+    if (!UtilService.empty(currentAsset)) {
       this.getSubAssets(currentAsset);
       this.assets = []
     }
-      this.title = viewTitle;
+      
     // }
+  }
+
+  setTitle(currentAsset) {
+    if (UtilService.empty(currentAsset)) {
+      this.title = 'Sub Assets'
+    } else {
+      this.title = currentAsset.asset_name;
+    }
   }
 
   ionViewDidLeave(){
@@ -63,15 +73,9 @@ export class SubAssetsPage {
 
   public navigate(item) {
     console.log(item);
-    console.log('Passed Navigate');
-    // if ( item.length > 0) {
-      this.title = item.asset_name;
-      this.getSubAssets(item);
-      // this.router.navigate(['sub_asset']);
-      this.navCtrl.push(SubAssetsPage);
-    // } else {
-    //   this.navCtrl.pop();
-    // }
+    this.setTitle(item);
+    this.transfereService.setData(item);
+    this.navCtrl.push(SubAssetsPage);
   }
 
 }

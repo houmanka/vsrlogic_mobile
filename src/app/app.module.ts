@@ -8,7 +8,7 @@ import { SubAssetsPageModule } from './../pages/sub-assets/sub-assets.module';
 import { ApiService } from './services/api.service';
 import { NotificationService } from './services/notification.service';
 import { AssetsPage } from './../pages/assets/assets';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
@@ -63,6 +63,7 @@ import { FileOpener } from '@ionic-native/file-opener'
     NotificationService,
     ApiService,
     FileOpener,
+    Title,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

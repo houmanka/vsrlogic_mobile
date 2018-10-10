@@ -1,20 +1,18 @@
-<!--
-  Generated template for the SubAssetsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>{{title}}</ion-title>
-  </ion-navbar>
-
+    <ion-toolbar>
+    </ion-toolbar>
+    <ion-toolbar text-center>
+      <ion-title>{{title}}</ion-title>
+    </ion-toolbar>
 </ion-header>
 
-
-<ion-content padding>
-    <ion-list>
+<ion-content>
+    <ion-list padding-top>
+        <ion-item *ngIf="assets.length === 0">
+            <ion-label>
+                No Sub assets available for this asset
+              </ion-label>
+        </ion-item>
         <ion-item 
         (click)="navigate(item)"
         detail lines="full" *ngFor="let item of assets" >

@@ -7,7 +7,7 @@ import { SubAssetsPage } from './../sub-assets/sub-assets';
 import { NotesPage } from './../notes/notes';
 import { DocumentsPage } from './../documents/documents';
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Navbar } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Navbar, App } from 'ionic-angular';
 
 /**
  * Generated class for the AssetTabsPage page.
@@ -26,7 +26,8 @@ export class AssetTabsPage {
   public title;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private transfereService: TransfereService
+    // private transfereService: TransfereService,
+    // private app: App
     ) {
   }
 
@@ -38,14 +39,14 @@ export class AssetTabsPage {
   ]
 
   ionViewDidLoad() {
-    const currentAsset = this.transfereService.getData();
-    let viewTitle;
-    if (UtilService.empty(currentAsset)) {
-      viewTitle = 'Sub Assets'
-    } else {
-      viewTitle = currentAsset.asset_name;
-    }
-      this.title = viewTitle;
+    // const currentAsset = this.transfereService.getData();
+    // let viewTitle;
+    // if (UtilService.empty(currentAsset)) {
+    //   viewTitle = 'Sub Assets'
+    // } else {
+    //   viewTitle = currentAsset.asset_name;
+    // }
+    //   this.title = viewTitle;
   }
 
   ionViewWillEnter(){

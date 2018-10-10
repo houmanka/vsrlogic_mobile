@@ -1,18 +1,64 @@
-<!--
-  Generated template for the TasksPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>tasks</ion-title>
-  </ion-navbar>
-
+    <ion-toolbar>
+    </ion-toolbar>
+    <ion-toolbar text-center>
+      <ion-title>{{title}}</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 
 <ion-content padding>
-
+  <ion-card *ngFor="let task of tasks">
+      <ion-item>
+        <h2>{{task.data.title}}</h2>
+        <p>Due: {{task.data.due_by | date}}</p>
+      </ion-item>
+    
+      <ion-card-content>
+        <p>{{task.data.description}}</p>
+      </ion-card-content>
+    
+      <ion-row>
+        <ion-col>
+          <button [color]="cssClass(task.data.status)" ion-button icon-start clear small>
+            <ion-icon name="clock"></ion-icon>
+            <div style="text-transform: uppercase">
+              {{task.data.status}}
+            </div>
+          </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button icon-start clear small>
+            <div>By: {{task.data.creator.full_name}}</div>
+          </button>
+        </ion-col>
+      </ion-row>
+    
+    </ion-card>
+  <ion-card *ngFor="let task of tasks">
+      <ion-item>
+        <h2>{{task.data.title}}</h2>
+        <p>Due: {{task.data.due_by | date}}</p>
+      </ion-item>
+    
+      <ion-card-content>
+        <p>{{task.data.description}}</p>
+      </ion-card-content>
+    
+      <ion-row>
+        <ion-col>
+          <button [color]="cssClass(task.data.status)" ion-button icon-start clear small>
+            <ion-icon name="clock"></ion-icon>
+            <div style="text-transform: uppercase">
+              {{task.data.status}}
+            </div>
+          </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button icon-start clear small>
+            <div>By: {{task.data.creator.full_name}}</div>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
 </ion-content>

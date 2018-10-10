@@ -45,6 +45,11 @@ export class ApiService {
     return this.http.get(APPCONFIG.apiUrl + `/documents?asset_id=${item.asset_id}`, headers);
   }
 
+  assetTasks(item) {
+    const headers = this.headers();
+    return this.http.get(APPCONFIG.apiUrl + `/tasks?group_id=${item.asset_id}`, headers);
+  }
+
 
 
   // private handleError(error: Response) {

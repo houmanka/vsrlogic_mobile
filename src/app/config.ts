@@ -9,7 +9,7 @@
       const year = date.getFullYear();
       let apiUrl = '';
 
-      ENV = 'dev';
+      ENV = 'dev'; 
 
       if (ENV === 'dev') {
         apiUrl = 'http://172.21.0.8:4000';
@@ -18,7 +18,7 @@
       } else if (ENV === 'prod') {
         apiUrl = 'https://vsrlogic.com';
       }
-
+ 
       const AppConfig = {
         brand: 'VSRLogic',
         title: 'VSRLogic - V8 System in Virtual Space',

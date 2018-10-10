@@ -1,13 +1,23 @@
 <ion-header>
+    <ion-toolbar>
+    </ion-toolbar>
     <ion-toolbar text-center>
-      </ion-toolbar>
-      <ion-toolbar>
-        </ion-toolbar>
+      <ion-title>{{title}}</ion-title>
+    </ion-toolbar>
 </ion-header>
 <ion-content padding>		
-      <div class="image__grid">		
-        <div class="image__square" *ngFor="let image of documents; let i = index" (click)="openPhoto(i)">
-          <img [src]="rootAddress+image.data.thumbnail" />				
-        </div>			
-      </div>		
+    <ion-list >
+        <ion-item no-lines  *ngFor="let image of documents">
+          <div class="image__grid">		
+            <div class="image__square" >
+              <img 
+              style="width: 80vw; height: 80vw;"
+              class="image__square"
+              [src]="rootAddress + image.data.thumbnail"
+              (click)="openPhoto(image)"
+              />
+            </div>			
+          </div>
+        </ion-item>		
+    </ion-list>
   </ion-content>
