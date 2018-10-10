@@ -32,33 +32,13 @@
             <div>By: {{task.data.creator.full_name}}</div>
           </button>
         </ion-col>
-      </ion-row>
-    
-    </ion-card>
-  <ion-card *ngFor="let task of tasks">
-      <ion-item>
-        <h2>{{task.data.title}}</h2>
-        <p>Due: {{task.data.due_by | date}}</p>
-      </ion-item>
-    
-      <ion-card-content>
-        <p>{{task.data.description}}</p>
-      </ion-card-content>
-    
-      <ion-row>
-        <ion-col>
-          <button [color]="cssClass(task.data.status)" ion-button icon-start clear small>
-            <ion-icon name="clock"></ion-icon>
-            <div style="text-transform: uppercase">
-              {{task.data.status}}
-            </div>
-          </button>
-        </ion-col>
-        <ion-col>
-          <button ion-button icon-start clear small>
-            <div>By: {{task.data.creator.full_name}}</div>
-          </button>
+        <ion-col center text-right>
+            <button ion-button icon-start clear item-end
+            (click)="navigate(task)">
+                <ion-icon name="arrow-forward"></ion-icon>
+              </button>
         </ion-col>
       </ion-row>
+    
     </ion-card>
 </ion-content>

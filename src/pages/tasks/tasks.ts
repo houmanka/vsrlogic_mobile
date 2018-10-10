@@ -1,10 +1,11 @@
+import { TaskDetailsPage } from './../task-details/task-details';
 import { Subscription } from 'rxjs/Subscription';
 import { UtilService } from './../../app/services/util.service';
 import { NotificationService } from './../../app/services/notification.service';
 import { ApiService } from './../../app/services/api.service';
 import { TransfereService } from './../../app/services/transfer.service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 
 /**
  * Generated class for the TasksPage page.
@@ -27,7 +28,9 @@ export class TasksPage {
     public navParams: NavParams,
     private transfereService: TransfereService,
     private apiSrv: ApiService,
-    private notificationSrv: NotificationService,) {
+    private notificationSrv: NotificationService,
+    public modalCtrl: ModalController
+    ) {
   }
 
   ionViewDidLoad() {
@@ -75,6 +78,15 @@ export class TasksPage {
     }
   }
 
+  navigate(task) {
+    let profileModal: any = this.presentTaskDetailsModal(task);
+    // this.navCtrl.push(TaskDetailsPage, {params: task});
+    profileModal.present();
+  }
+
+  presentTaskDetailsModal(task) {
+    return this.modalCtrl.create(TaskDetailsPage, { params: task });
+  }
   
 
 }

@@ -1,3 +1,4 @@
+import { TaskDetailsPage } from './../pages/task-details/task-details';
 import { DocumentDetailsPage } from './../pages/document-details/document-details';
 import { NotesPage } from './../pages/notes/notes';
 import { TasksPage } from './../pages/tasks/tasks';
@@ -35,6 +36,7 @@ import { FileOpener } from '@ionic-native/file-opener'
     HistoryPage,
     AssetTabsPage,
     DocumentDetailsPage,
+    TaskDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -54,7 +56,8 @@ import { FileOpener } from '@ionic-native/file-opener'
     TasksPage,
     NotesPage,
     HistoryPage,
-    DocumentDetailsPage
+    DocumentDetailsPage,
+    TaskDetailsPage
   ],
   providers: [
     StatusBar,

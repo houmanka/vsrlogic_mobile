@@ -1,0 +1,46 @@
+<ion-header>
+    <ion-navbar>
+      <ion-buttons start left>
+        <button ion-button icon-only clear light  (click)="dismiss()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-title center text-center>{{title}}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-card>
+      <ion-card-content>
+        <ion-card-title>
+          {{task.data.title}}
+          </ion-card-title>
+        <p>{{task.data.description}}</p>
+        <p>Status: <span style="text-transform: uppercase;">
+          {{task.data.status}}
+        </span></p>
+        <p>Due By: {{task.data.due_by | date}}</p>
+
+      </ion-card-content>
+    </ion-card>
+
+    <ion-list>
+        <button ion-item>
+          <ion-icon name="checkbox" item-start></ion-icon>
+          Checklist
+        </button>
+        <button ion-item>
+            <ion-icon name="document" item-start></ion-icon>
+            Documents
+        </button>        
+        <button ion-item>
+            <ion-icon name="text" item-start></ion-icon>
+            Notes
+        </button>        
+        <button ion-item>
+            <ion-icon name="people" item-start></ion-icon>
+            Members
+        </button>
+    </ion-list>
+
+
+</ion-content>
