@@ -29,7 +29,6 @@ export class AssetsPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AssetsPage');
     this.getRootAssets();
   }
 

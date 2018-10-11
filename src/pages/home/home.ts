@@ -1,3 +1,4 @@
+import { GlobalHistoryPage } from './../global-history/global-history';
 import { AssetsPage } from './../assets/assets';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
@@ -14,7 +15,7 @@ export class HomePage {
     this.data = [
       {name: 'Assets', page: AssetsPage},
       {name: 'Tasks', page: TasksPage},
-      {name: 'History', page: 'history'},
+      {name: 'History', page: GlobalHistoryPage},
       {name: 'Search', page: 'search'}
     ];
   }

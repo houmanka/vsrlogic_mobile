@@ -40,13 +40,10 @@ export class SubAssetsPage {
     console.log("I AM TRIGGERED")
     const currentAsset = this.transfereService.getData();
     this.setTitle(currentAsset);
-    // this.transfereService.clearData();
     if (!UtilService.empty(currentAsset)) {
       this.getSubAssets(currentAsset);
       this.assets = []
     }
-      
-    // }
   }
 
   setTitle(currentAsset) {
@@ -62,7 +59,6 @@ export class SubAssetsPage {
   }
 
   private getSubAssets(item) {
-    console.log(item);
     this.subAssetSubs = this.apiSrv.subAssets(item).subscribe( (res: any) => {
       this.assets = res;
     },
@@ -72,7 +68,6 @@ export class SubAssetsPage {
   }
 
   public navigate(item) {
-    console.log(item);
     this.setTitle(item);
     this.transfereService.setData(item);
     this.navCtrl.push(SubAssetsPage);

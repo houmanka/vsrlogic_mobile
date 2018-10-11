@@ -40,6 +40,11 @@ export class ApiService {
     return this.http.get(APPCONFIG.apiUrl + `/assets/${item.asset_id}/children`, headers);
   }
 
+  singleAsset(assetId) {
+    const headers = this.headers();
+    return this.http.get(APPCONFIG.apiUrl + `/assets/${assetId}`, headers);
+  }
+
   documents(item) {
     const headers = this.headers();
     return this.http.get(APPCONFIG.apiUrl + `/documents?asset_id=${item.asset_id}`, headers);
@@ -53,6 +58,11 @@ export class ApiService {
   globalTasks() {
     const headers = this.headers();
     return this.http.get(APPCONFIG.apiUrl + `/tasks`, headers);
+  }
+
+  globalHistory() {
+    const headers = this.headers();
+    return this.http.get(APPCONFIG.apiUrl + `/history`, headers);
   }
 
 
