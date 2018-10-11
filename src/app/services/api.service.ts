@@ -50,6 +50,11 @@ export class ApiService {
     return this.http.get(APPCONFIG.apiUrl + `/tasks?group_id=${item.asset_id}`, headers);
   }
 
+  globalTasks() {
+    const headers = this.headers();
+    return this.http.get(APPCONFIG.apiUrl + `/tasks`, headers);
+  }
+
 
 
   // private handleError(error: Response) {

@@ -54,11 +54,12 @@ export class AssetTabsPage {
   }
 
   home() {
+    // this.navCtrl.push(AssetsPage);
     this.navCtrl.push(AssetsPage);
   }
 
   dashboard() {
-    this.navCtrl.push(HomePage);
+    this.navCtrl.goToRoot({animate: true});
   }
   
 

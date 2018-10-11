@@ -1,6 +1,7 @@
 import { AssetsPage } from './../assets/assets';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { TasksPage } from '../tasks/tasks';
 
 @Component({
   selector: 'page-home',
@@ -12,14 +13,18 @@ export class HomePage {
 
     this.data = [
       {name: 'Assets', page: AssetsPage},
-      {name: 'Tasks', page: 'tasks'},
+      {name: 'Tasks', page: TasksPage},
       {name: 'History', page: 'history'},
       {name: 'Search', page: 'search'}
     ];
   }
 
   public navigate(item) {
-    this.navCtrl.push(item.page);
+    if (item.name == 'Tasks') {
+      this.navCtrl.push(item.page, {params: {root: true}});
+    } else {
+      this.navCtrl.push(item.page);
+    }
   }
 
 }
