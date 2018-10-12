@@ -1,3 +1,22 @@
 page-notes {
-
+  .image__grid {
+		margin-top: 5px;
+    overflow: hidden;
+		.image__square:nth-child(4n+4){
+			padding-right: 5px;
+		}
+		.image__square {
+			// width: 92vw;
+			float: left;
+			margin: 0px 10px 10px 0px;
+      // border: 1px solid #ccc;
+      width: 100px;
+      height: 100px;
+			img {
+			    // height: 100%;
+          // width: 100%;
+          object-fit: scale-down;
+			}
+		}
+	}
 }

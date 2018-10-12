@@ -1,3 +1,4 @@
+import { AssetHistoryPage } from './../asset-history/asset-history';
 import { HomePage } from './../home/home';
 import { AssetsPage } from './../assets/assets';
 import { UtilService } from './../../app/services/util.service';
@@ -62,5 +63,8 @@ export class AssetTabsPage {
     this.navCtrl.goToRoot({animate: true});
   }
   
+  history() {
+    this.navCtrl.push(AssetHistoryPage)
+  }
 
 }

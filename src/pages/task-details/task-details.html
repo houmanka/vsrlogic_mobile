@@ -24,22 +24,22 @@
     </ion-card>
 
     <ion-list>
-        <button ion-item>
+        <button ion-item (click)="checklist(task)">
           <ion-icon name="checkbox" item-start></ion-icon>
           Checklist
         </button>
-        <button ion-item>
+        <button ion-item (click)="taskDocument(task)">
             <ion-icon name="document" item-start></ion-icon>
             Documents
         </button>        
-        <button ion-item>
+        <button ion-item (click)="taskNotes(task)">
             <ion-icon name="text" item-start></ion-icon>
             Notes
         </button>        
-        <button ion-item>
+        <!-- <button ion-item (click)="taskMembers(task)">
             <ion-icon name="people" item-start></ion-icon>
             Members
-        </button>
+        </button> -->
     </ion-list>
 
 

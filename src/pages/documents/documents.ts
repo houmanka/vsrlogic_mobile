@@ -43,7 +43,6 @@ export class DocumentsPage {
   }
 
   setTitle(currentAsset) {
-    debugger
     if (UtilService.empty(currentAsset)) {
       this.title = 'Sub Assets'
     } else {
@@ -68,7 +67,6 @@ export class DocumentsPage {
     let filename = document.data.address
     filename = filename.replace(/^.*[\\\/]/, '')
     const ext = (/[.]/.exec(filename)) ? /[^.]+$/.exec(filename) : undefined;
-    debugger
     if (ext[0] === 'png') {
       this.fileOpener.open(document.data.address, 'image/png');
     } else if(ext[0] === 'pdf') {

@@ -1,0 +1,28 @@
+<!--
+  Generated template for the ChecklistPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-list *ngFor="let checklist_group of checklists">
+    <ion-list-header>
+        {{checklist_group.name}}
+    </ion-list-header>
+    <ion-item *ngFor="let checklist of checklist_group.checklists">
+      <ion-label>{{checklist.data.content}}</ion-label>
+      <ion-checkbox 
+      [(ngModel)]="checklist.data.completed"
+      (ionChange)="toggleCompleted(checklist)"
+      ></ion-checkbox>
+    </ion-item>   
+  </ion-list>
+</ion-content>

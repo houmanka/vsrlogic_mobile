@@ -1,3 +1,6 @@
+import { AssetHistoryPage } from './../pages/asset-history/asset-history';
+import { TaskDocumentPage } from './../pages/task-document/task-document';
+import { ChecklistPage } from './../pages/checklist/checklist';
 import { GlobalHistoryPage } from './../pages/global-history/global-history';
 import { TaskDetailsPage } from './../pages/task-details/task-details';
 import { DocumentDetailsPage } from './../pages/document-details/document-details';
@@ -24,6 +27,7 @@ import { TransfereService } from './services/transfer.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HistoryPage } from '../pages/history/history';
 import { FileOpener } from '@ionic-native/file-opener'
+import { TaskNotesPage } from '../pages/task-notes/task-notes';
 
 @NgModule({
   declarations: [
@@ -39,6 +43,10 @@ import { FileOpener } from '@ionic-native/file-opener'
     DocumentDetailsPage,
     TaskDetailsPage,
     GlobalHistoryPage,
+    ChecklistPage,
+    TaskDocumentPage,
+    TaskNotesPage,
+    AssetHistoryPage
   ],
   imports: [
     BrowserModule,
@@ -60,7 +68,11 @@ import { FileOpener } from '@ionic-native/file-opener'
     HistoryPage,
     DocumentDetailsPage,
     TaskDetailsPage,
-    GlobalHistoryPage
+    GlobalHistoryPage,
+    ChecklistPage,
+    TaskDocumentPage,
+    TaskNotesPage,
+    AssetHistoryPage
   ],
   providers: [
     StatusBar,

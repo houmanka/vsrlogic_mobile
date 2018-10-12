@@ -1,3 +1,6 @@
+import { TaskNotesPage } from './../task-notes/task-notes';
+import { TaskDocumentPage } from './../task-document/task-document';
+import { ChecklistPage } from './../checklist/checklist';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -33,6 +36,18 @@ export class TaskDetailsPage {
 
   dismiss() {
     this.navCtrl.pop();
+  }
+
+  checklist(task) {
+    this.navCtrl.push(ChecklistPage, {params: task});
+  }
+
+  taskDocument(task) {
+    this.navCtrl.push(TaskDocumentPage, {params: task});
+  }
+
+  taskNotes(task) {
+    this.navCtrl.push(TaskNotesPage, {params: task});
   }
 
 }

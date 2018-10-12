@@ -65,6 +65,32 @@ export class ApiService {
     return this.http.get(APPCONFIG.apiUrl + `/history`, headers);
   }
 
+  checklist(taskId) {
+    const headers = this.headers();
+    return this.http.get(APPCONFIG.apiUrl + `/tasks/${taskId}/checklists`, headers);
+  }
+
+  taskDocument(taskId) {
+    const headers = this.headers();
+    return this.http.get(APPCONFIG.apiUrl + `/tasks/${taskId}/documents`, headers);
+  }
+
+  commentList(assetId) {
+    const headers = this.headers();
+    return this.http.get(APPCONFIG.apiUrl + `/comments?resource=assets&resource_id=${assetId}`, headers);
+  }
+
+  taskCommentList(taskId) {
+    const headers = this.headers();
+    return this.http.get(APPCONFIG.apiUrl + `/comments?resource=tasks&resource_id=${taskId}`, headers);
+  }
+
+  assetHistory(assetId) {
+    const headers = this.headers();
+    return this.http.get(APPCONFIG.apiUrl + `/history/${assetId}?limit=100`, headers);
+  }
+
+
 
 
   // private handleError(error: Response) {
