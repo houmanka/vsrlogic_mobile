@@ -1,4 +1,3 @@
-import { SubAssetsPage } from './../sub-assets/sub-assets';
 import { TransfereService } from './../../app/services/transfer.service';
 import { ApiService } from './../../app/services/api.service';
 import { NotificationService } from './../../app/services/notification.service';

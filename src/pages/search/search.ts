@@ -23,6 +23,8 @@ export class SearchPage {
   public searchRes = [];
   private loading;
   public searchReq;
+  public showBack = false;
+  private assetId;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private notificationSrv: NotificationService,
     private apiSrv: ApiService,
@@ -35,17 +37,26 @@ export class SearchPage {
     if(!UtilService.empty(this.loading)){
       this.loading.dismiss();
     }
-    const searchReq = StorageService.read('search');
-    if(!UtilService.empty(searchReq)){
-      this.searchReq = searchReq;
-      this.search(this.searchReq);
+
+    const params = this.navParams.get('params');
+    if (!UtilService.empty(params) && !UtilService.empty(params.assetId)) {
+      this.assetId = params.assetId;
+      this.showBack = params.showBack;
+    } else {
+      const searchReq = StorageService.read('search');
+      if(!UtilService.empty(searchReq)){
+        this.searchReq = searchReq;
+        this.search(this.searchReq, true);
+      }
     }
   }
 
-  public search(keyword) {
+  public search(keyword, saveIt) {
     this.presentLoadingDefault();
-    StorageService.store('search', keyword);
-    this.apiSrv.search(keyword).subscribe( (res: any) => {
+    if (saveIt) {
+      StorageService.store('search', keyword);
+    }
+    this.apiSrv.search(keyword, this.assetId).subscribe( (res: any) => {
       this.searchRes = res;
       this.loading.dismiss();
     },
@@ -63,7 +74,13 @@ export class SearchPage {
   }
 
   submitSearch(event) {
-    this.search(this.searchReq);
+    if (UtilService.empty(this.assetId)) {
+      this.search(this.searchReq, true);
+    } else {
+      // dont need to cache the search request
+      this.search(this.searchReq, false);
+    }
+    
   }
 
   navigateTo(item) {
@@ -77,6 +94,10 @@ export class SearchPage {
       this.notificationSrv.notify('Error', error);
       this.loading.dismiss();
     });
+  }
+
+  back() {
+    this.navCtrl.pop()
   }
   
 

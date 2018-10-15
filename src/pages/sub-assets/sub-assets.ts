@@ -1,9 +1,10 @@
+import { SetTitleProvider } from './../../providers/set-title/set-title';
 import { NotificationService } from './../../app/services/notification.service';
 import { ApiService } from './../../app/services/api.service';
 import { TransfereService } from './../../app/services/transfer.service';
 import { UtilService } from './../../app/services/util.service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Subscription } from 'rxjs/Subscription';
 
 
@@ -31,6 +32,7 @@ export class SubAssetsPage {
     private transfereService: TransfereService,
     private apiSrv: ApiService,
     private notificationSrv: NotificationService,
+    private setTitleP: SetTitleProvider
     ) {
   }
 
@@ -38,18 +40,11 @@ export class SubAssetsPage {
 
   ionViewDidLoad(){
     const currentAsset = this.transfereService.getData();
-    this.setTitle(currentAsset);
+    this.setTitleP.getAssetTitle('Sub Assets');
+
     if (!UtilService.empty(currentAsset)) {
       this.getSubAssets(currentAsset);
       this.assets = []
-    }
-  }
-
-  setTitle(currentAsset) {
-    if (UtilService.empty(currentAsset)) {
-      this.title = 'Sub Assets'
-    } else {
-      this.title = currentAsset.asset_name;
     }
   }
 
@@ -67,8 +62,8 @@ export class SubAssetsPage {
   }
 
   public navigate(item) {
-    this.setTitle(item);
     this.transfereService.setData(item);
+    this.setTitleP.getAssetTitle('Sub Assets');
     this.navCtrl.push(SubAssetsPage);
   }
 

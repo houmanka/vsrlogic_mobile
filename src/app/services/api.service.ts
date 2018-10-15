@@ -92,7 +92,7 @@ export class ApiService {
 
   search(searchKeyword, assetId?) {
     let url = `/search?q=${searchKeyword}`;
-    if (assetId) {
+    if (!UtilService.empty(assetId)) {
       url += `&asset_id=${assetId}`;
     }
     const headers = this.headers();

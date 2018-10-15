@@ -1,14 +1,14 @@
-import { AssetHistoryPage } from './../asset-history/asset-history';
 import { HomePage } from './../home/home';
+import { SearchPage } from './../search/search';
+import { SetTitleProvider } from './../../providers/set-title/set-title';
+import { AssetHistoryPage } from './../asset-history/asset-history';
 import { AssetsPage } from './../assets/assets';
-import { UtilService } from './../../app/services/util.service';
-import { TransfereService } from './../../app/services/transfer.service';
 import { TasksPage } from './../tasks/tasks';
 import { SubAssetsPage } from './../sub-assets/sub-assets';
 import { NotesPage } from './../notes/notes';
 import { DocumentsPage } from './../documents/documents';
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Navbar, App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Navbar, ModalController } from 'ionic-angular';
 
 /**
  * Generated class for the AssetTabsPage page.
@@ -25,10 +25,11 @@ import { IonicPage, NavController, NavParams, Navbar, App } from 'ionic-angular'
 export class AssetTabsPage {
   @ViewChild(Navbar) navBar: Navbar;
   public title;
+  public assetId;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    // private transfereService: TransfereService,
-    // private app: App
+    public modalCtrl: ModalController,
+    private setTitleP: SetTitleProvider,
     ) {
   }
 
@@ -40,31 +41,40 @@ export class AssetTabsPage {
   ]
 
   ionViewDidLoad() {
-    // const currentAsset = this.transfereService.getData();
-    // let viewTitle;
-    // if (UtilService.empty(currentAsset)) {
-    //   viewTitle = 'Sub Assets'
-    // } else {
-    //   viewTitle = currentAsset.asset_name;
-    // }
-    //   this.title = viewTitle;
+    this.setTitleP.event.subscribe( (res: any) => {
+      this.title = res.title;
+      this.assetId = res.assetId;
+    })
+    this.setTitleP.getAssetTitle('Sub Assets');
   }
-
+ 
   ionViewWillEnter(){
    
   }
 
   home() {
-    // this.navCtrl.push(AssetsPage);
     this.navCtrl.push(AssetsPage);
   }
 
   dashboard() {
-    this.navCtrl.goToRoot({animate: true});
+    this.navCtrl.push(HomePage);
   }
   
   history() {
     this.navCtrl.push(AssetHistoryPage)
+  }
+
+  searchAssets() {
+    let profileModal: any = this.presentSearchModal();
+    profileModal.present();
+  }
+
+  presentSearchModal() {
+    return this.modalCtrl.create(SearchPage, { params: {assetId: this.assetId, showBack: true} });
+  }
+
+  back() {
+    this.navCtrl.pop()
   }
 
 }

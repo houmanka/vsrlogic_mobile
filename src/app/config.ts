@@ -5,11 +5,11 @@
     let ENV;
 
     function makeAppConfig() {
-      const date = new Date();
-      const year = date.getFullYear();
+      // const date = new Date();
+      // const year = date.getFullYear();
       let apiUrl = '';
 
-      ENV = 'dev'; 
+      ENV = 'prod'; 
 
       if (ENV === 'dev') {
         apiUrl = 'http://172.21.0.8:4000';

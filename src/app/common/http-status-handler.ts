@@ -9,13 +9,13 @@ export class HttpStatusHandler {
         // empty
     }
 
-    private notificationOpts = {
-        timeOut: 2000,
-        showProgressBar: true,
-        pauseOnHover: true,
-        clickToClose: true,
-        maxLength: 1000
-    };
+    // private notificationOpts = {
+    //     timeOut: 2000,
+    //     showProgressBar: true,
+    //     pauseOnHover: true,
+    //     clickToClose: true,
+    //     maxLength: 1000
+    // };
 
     public resultAnlyser(res: any, success?: string ) {
         switch (res.status) {

@@ -30,6 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HistoryPage } from '../pages/history/history';
 import { FileOpener } from '@ionic-native/file-opener'
 import { TaskNotesPage } from '../pages/task-notes/task-notes';
+import { SetTitleProvider } from '../providers/set-title/set-title';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,9 @@ import { TaskNotesPage } from '../pages/task-notes/task-notes';
     ApiService,
     FileOpener,
     Title,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    SetTitleProvider,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    SetTitleProvider
   ]
 })
 export class AppModule {}

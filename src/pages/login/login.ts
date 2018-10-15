@@ -1,3 +1,4 @@
+import { UtilService } from './../../app/services/util.service';
 import { HomePage } from './../home/home';
 import { StorageService } from './../../app/services/storage.service';
 import { NotificationService } from './../../app/services/notification.service';
@@ -33,11 +34,23 @@ export class LoginPage {
   }
 
   ionViewDidLoad(): void {
-    setTimeout(() => {
-      this.email.setFocus();
-    }, 500);
-    this.username = 'josh.proud@emtek.com.au';
-    this.password = '7phantem';
+
+    const params = this.navParams.get('params');
+    if (!UtilService.empty(params) && params.logout === true) {
+      StorageService.clear();
+    }
+
+
+    const authToken = StorageService.read('token');
+    if (authToken != null) {
+      this.navCtrl.push(HomePage)
+    } else {
+      setTimeout(() => {
+        this.email.setFocus();
+      }, 500);
+      this.username = 'josh.proud@emtek.com.au';
+      this.password = '7phantem';
+    }
   }
   
 

@@ -1,10 +1,9 @@
 import { AssetTabsPage } from './../asset-tabs/asset-tabs';
-import { SubAssetsPage } from './../sub-assets/sub-assets';
 import { ApiService } from './../../app/services/api.service';
 import { NotificationService } from './../../app/services/notification.service';
 import { TransfereService } from './../../app/services/transfer.service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 /**
  * Generated class for the AssetsPage page.

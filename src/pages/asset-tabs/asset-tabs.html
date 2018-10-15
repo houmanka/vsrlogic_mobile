@@ -1,22 +1,28 @@
 <ion-header>
-    <ion-toolbar>
-        <button ion-button >
-            <ion-icon name="arrow-back"></ion-icon>
-        </button>
-        <button ion-button (click)="home()">
-            <ion-icon name="home"></ion-icon>
-        </button>
-        <!-- <button ion-button >
-            <ion-icon name="analytics"></ion-icon>
-        </button> -->
-        <button ion-button  (click)="dashboard()" >
-            <ion-icon name="apps"></ion-icon>
-        </button>
-        <button ion-button
-        style="float: right"
-        (click)="history()" right end text-right >
-            <ion-icon name="clock"></ion-icon>
-        </button>
+    <ion-toolbar no-border-top>
+        <ion-buttons start left>
+            <!-- <button ion-button >
+                <ion-icon name="arrow-back"></ion-icon>
+            </button> -->
+            <button ion-button (click)="home()">
+                <ion-icon name="home"></ion-icon>
+            </button>
+            <!-- <button ion-button >
+                <ion-icon name="analytics"></ion-icon>
+            </button> -->
+            <button ion-button  (click)="dashboard()" >
+                <ion-icon name="apps"></ion-icon>
+            </button>
+            <button ion-button  (click)="searchAssets()" >
+                <ion-icon name="search"></ion-icon>
+            </button>
+            <button ion-button
+            style="float: right"
+            (click)="history()" right end text-right >
+                <ion-icon name="clock"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title end>{{title}}</ion-title>
       </ion-toolbar>
 </ion-header>
 <ion-tabs>

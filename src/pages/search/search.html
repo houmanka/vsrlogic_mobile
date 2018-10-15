@@ -1,5 +1,10 @@
 <ion-header>
   <ion-navbar>
+    <ion-buttons start left *ngIf="showBack === true">
+        <button ion-button icon-only (click)="back()">
+          <ion-icon name="arrow-back"></ion-icon>
+        </button>
+      </ion-buttons>
     <ion-title text-center>Search</ion-title>
   </ion-navbar>
   <ion-toolbar no-border-top>
