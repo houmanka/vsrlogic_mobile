@@ -1,3 +1,5 @@
+import { TruncatePipe } from './pipes/limited-to.pipe';
+import { SearchPage } from './../pages/search/search';
 import { AssetHistoryPage } from './../pages/asset-history/asset-history';
 import { TaskDocumentPage } from './../pages/task-document/task-document';
 import { ChecklistPage } from './../pages/checklist/checklist';
@@ -46,7 +48,9 @@ import { TaskNotesPage } from '../pages/task-notes/task-notes';
     ChecklistPage,
     TaskDocumentPage,
     TaskNotesPage,
-    AssetHistoryPage
+    AssetHistoryPage,
+    SearchPage,
+    TruncatePipe
   ],
   imports: [
     BrowserModule,
@@ -72,7 +76,8 @@ import { TaskNotesPage } from '../pages/task-notes/task-notes';
     ChecklistPage,
     TaskDocumentPage,
     TaskNotesPage,
-    AssetHistoryPage
+    AssetHistoryPage,
+    SearchPage
   ],
   providers: [
     StatusBar,

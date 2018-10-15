@@ -90,6 +90,15 @@ export class ApiService {
     return this.http.get(APPCONFIG.apiUrl + `/history/${assetId}?limit=100`, headers);
   }
 
+  search(searchKeyword, assetId?) {
+    let url = `/search?q=${searchKeyword}`;
+    if (assetId) {
+      url += `&asset_id=${assetId}`;
+    }
+    const headers = this.headers();
+    return this.http.get(APPCONFIG.apiUrl + url, headers);
+  }
+
 
 
 

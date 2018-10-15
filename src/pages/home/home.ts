@@ -1,3 +1,4 @@
+import { SearchPage } from './../search/search';
 import { GlobalHistoryPage } from './../global-history/global-history';
 import { AssetsPage } from './../assets/assets';
 import { Component } from '@angular/core';
@@ -16,7 +17,7 @@ export class HomePage {
       {name: 'Assets', page: AssetsPage},
       {name: 'Tasks', page: TasksPage},
       {name: 'History', page: GlobalHistoryPage},
-      {name: 'Search', page: 'search'}
+      {name: 'Search', page: SearchPage}
     ];
   }
 

@@ -37,7 +37,6 @@ export class SubAssetsPage {
  
 
   ionViewDidLoad(){
-    console.log("I AM TRIGGERED")
     const currentAsset = this.transfereService.getData();
     this.setTitle(currentAsset);
     if (!UtilService.empty(currentAsset)) {

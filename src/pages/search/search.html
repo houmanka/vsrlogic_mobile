@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>Search</ion-title>
+  </ion-navbar>
+  <ion-toolbar no-border-top>
+    <form (ngSubmit)="submitSearch($event)">
+      <ion-searchbar
+      [(ngModel)]="searchReq"
+      placeholder="Global Search"
+      [ngModelOptions]="{standalone: true}"
+      [showCancelButton]="true"
+      ></ion-searchbar>
+    </form>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <ion-list [virtualScroll]="searchRes">
+    <ion-item *virtualItem="let item">
+      <h3>{{ item.title | myLimitedTo: 100 }}</h3>
+      <p style="text-transform: capitalize">{{ item.type }}</p>
+      <button ion-button clear item-end (click)="navigateTo(item)">
+        to asset > 
+      </button>
+    </ion-item>
+  </ion-list>
+</ion-content>
