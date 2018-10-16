@@ -1,18 +1,14 @@
 import { StorageService } from './storage.service';
-import { APPCONFIG } from './../config';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { UtilService } from './util.service';
-
-
+import { HttpHeaders } from '@angular/common/http';
 
 
 @Injectable()
 export class ApiService {
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
-  private headers() {
+  public headers() {
     const authToken = StorageService.read('token');
     const currentUser: any = StorageService.read('currentUser');
     const httpOptions = {
@@ -26,79 +22,9 @@ export class ApiService {
     return httpOptions;
   }
  
-  login(data: DataStructure) {
-    return this.http.post(APPCONFIG.apiUrl + '/auths', data.data);
-  }
+  
 
-  rootAssets() {
-    const headers = this.headers();
-    return this.http.get(APPCONFIG.apiUrl + '/assets/root', headers);
-  }
-
-  subAssets(item) {
-    const headers = this.headers();
-    return this.http.get(APPCONFIG.apiUrl + `/assets/${item.asset_id}/children`, headers);
-  }
-
-  singleAsset(assetId) {
-    const headers = this.headers();
-    return this.http.get(APPCONFIG.apiUrl + `/assets/${assetId}`, headers);
-  }
-
-  documents(item) {
-    const headers = this.headers();
-    return this.http.get(APPCONFIG.apiUrl + `/documents?asset_id=${item.asset_id}`, headers);
-  }
-
-  assetTasks(item) {
-    const headers = this.headers();
-    return this.http.get(APPCONFIG.apiUrl + `/tasks?group_id=${item.asset_id}`, headers);
-  }
-
-  globalTasks() {
-    const headers = this.headers();
-    return this.http.get(APPCONFIG.apiUrl + `/tasks`, headers);
-  }
-
-  globalHistory() {
-    const headers = this.headers();
-    return this.http.get(APPCONFIG.apiUrl + `/history`, headers);
-  }
-
-  checklist(taskId) {
-    const headers = this.headers();
-    return this.http.get(APPCONFIG.apiUrl + `/tasks/${taskId}/checklists`, headers);
-  }
-
-  taskDocument(taskId) {
-    const headers = this.headers();
-    return this.http.get(APPCONFIG.apiUrl + `/tasks/${taskId}/documents`, headers);
-  }
-
-  commentList(assetId) {
-    const headers = this.headers();
-    return this.http.get(APPCONFIG.apiUrl + `/comments?resource=assets&resource_id=${assetId}`, headers);
-  }
-
-  taskCommentList(taskId) {
-    const headers = this.headers();
-    return this.http.get(APPCONFIG.apiUrl + `/comments?resource=tasks&resource_id=${taskId}`, headers);
-  }
-
-  assetHistory(assetId) {
-    const headers = this.headers();
-    return this.http.get(APPCONFIG.apiUrl + `/history/${assetId}?limit=100`, headers);
-  }
-
-  search(searchKeyword, assetId?) {
-    let url = `/search?q=${searchKeyword}`;
-    if (!UtilService.empty(assetId)) {
-      url += `&asset_id=${assetId}`;
-    }
-    const headers = this.headers();
-    return this.http.get(APPCONFIG.apiUrl + url, headers);
-  }
-
+  
 
 
 

@@ -1,5 +1,5 @@
+import { ApiGetProvider } from './../../providers/api-get/api-get';
 import { TransfereService } from './../../app/services/transfer.service';
-import { ApiService } from './../../app/services/api.service';
 import { NotificationService } from './../../app/services/notification.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -23,7 +23,7 @@ export class GlobalHistoryPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private notificationSrv: NotificationService,
-    private apiSrv: ApiService,
+    private apiSrv: ApiGetProvider,
     private transfereService: TransfereService,
     ) {
   }

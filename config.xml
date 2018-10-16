@@ -85,4 +85,5 @@
     <plugin name="cordova-plugin-file-opener2" spec="2.0.19" />
     <engine name="android" spec="7.1.1" />
     <engine name="ios" spec="4.5.5" />
+    <allow-navigation href="http://10.30.30.77:8100" />
 </widget>

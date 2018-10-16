@@ -32,6 +32,11 @@ import { FileOpener } from '@ionic-native/file-opener'
 import { TaskNotesPage } from '../pages/task-notes/task-notes';
 import { SetTitleProvider } from '../providers/set-title/set-title';
 
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
+import { ApiPostProvider } from '../providers/api-post/api-post';
+import { ApiGetProvider } from '../providers/api-get/api-get';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -90,7 +95,10 @@ import { SetTitleProvider } from '../providers/set-title/set-title';
     Title,
     SetTitleProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    SetTitleProvider
+    SetTitleProvider,
+    FileTransfer, FileTransferObject, File,
+    ApiPostProvider,
+    ApiGetProvider
   ]
 })
 export class AppModule {}

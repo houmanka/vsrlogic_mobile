@@ -1,8 +1,8 @@
+import { ApiGetProvider } from './../../providers/api-get/api-get';
 import { APPCONFIG } from './../../app/config';
 import { UtilService } from './../../app/services/util.service';
 import { FileOpener } from '@ionic-native/file-opener';
 import { NotificationService } from './../../app/services/notification.service';
-import { ApiService } from './../../app/services/api.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -26,7 +26,7 @@ export class TaskNotesPage {
   public notes = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private apiSrv: ApiService,
+    private apiSrv: ApiGetProvider,
     private notificationSrv: NotificationService,
     private fileOpener: FileOpener) {
   }

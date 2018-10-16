@@ -1,9 +1,9 @@
+import { ApiGetProvider } from './../../providers/api-get/api-get';
 import { FileOpener } from '@ionic-native/file-opener';
 import { UtilService } from './../../app/services/util.service';
 import { APPCONFIG } from './../../app/config';
 import { TransfereService } from './../../app/services/transfer.service';
 import { NotificationService } from './../../app/services/notification.service';
-import { ApiService } from './../../app/services/api.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -19,7 +19,7 @@ export class NotesPage {
   public documents = [];
   public notes = [];
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private apiSrv: ApiService,
+    private apiSrv: ApiGetProvider,
     private notificationSrv: NotificationService,
     private transferSrv: TransfereService, private fileOpener: FileOpener) {
   }

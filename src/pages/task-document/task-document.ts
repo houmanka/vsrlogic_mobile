@@ -1,5 +1,5 @@
+import { ApiGetProvider } from './../../providers/api-get/api-get';
 import { APPCONFIG } from './../../app/config';
-import { ApiService } from './../../app/services/api.service';
 import { NotificationService } from './../../app/services/notification.service';
 import { FileOpener } from '@ionic-native/file-opener';
 import { Component } from '@angular/core';
@@ -25,7 +25,7 @@ export class TaskDocumentPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private apiSrv: ApiService,
+    private apiSrv: ApiGetProvider,
     private notificationSrv: NotificationService,
     private fileOpener: FileOpener,
     ) {

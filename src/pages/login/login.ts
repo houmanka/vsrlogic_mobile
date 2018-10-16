@@ -1,8 +1,8 @@
+import { ApiPostProvider } from './../../providers/api-post/api-post';
 import { UtilService } from './../../app/services/util.service';
 import { HomePage } from './../home/home';
 import { StorageService } from './../../app/services/storage.service';
 import { NotificationService } from './../../app/services/notification.service';
-import { ApiService } from './../../app/services/api.service';
 import { User } from './../../app/services/user';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -28,7 +28,7 @@ export class LoginPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private apiSrv: ApiService,
+    private apiSrv: ApiPostProvider,
     private notificationSrv: NotificationService,
     ) {
   }

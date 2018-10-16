@@ -1,8 +1,8 @@
+import { ApiGetProvider } from './../../providers/api-get/api-get';
 import { StorageService } from './../../app/services/storage.service';
 import { TransfereService } from './../../app/services/transfer.service';
 import { UtilService } from './../../app/services/util.service';
 import { NotificationService } from './../../app/services/notification.service';
-import { ApiService } from './../../app/services/api.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
@@ -27,7 +27,7 @@ export class SearchPage {
   private assetId;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private notificationSrv: NotificationService,
-    private apiSrv: ApiService,
+    private apiSrv: ApiGetProvider,
     public loadingCtrl: LoadingController,
     private transferSrv: TransfereService
     ) {

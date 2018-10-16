@@ -1,6 +1,6 @@
+import { ApiGetProvider } from './../../providers/api-get/api-get';
 import { SetTitleProvider } from './../../providers/set-title/set-title';
 import { NotificationService } from './../../app/services/notification.service';
-import { ApiService } from './../../app/services/api.service';
 import { TransfereService } from './../../app/services/transfer.service';
 import { UtilService } from './../../app/services/util.service';
 import { Component } from '@angular/core';
@@ -30,7 +30,7 @@ export class SubAssetsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private transfereService: TransfereService,
-    private apiSrv: ApiService,
+    private apiSrv: ApiGetProvider,
     private notificationSrv: NotificationService,
     private setTitleP: SetTitleProvider
     ) {

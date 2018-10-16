@@ -1,8 +1,8 @@
+import { ApiGetProvider } from './../../providers/api-get/api-get';
 import { TaskDetailsPage } from './../task-details/task-details';
 import { Subscription } from 'rxjs/Subscription';
 import { UtilService } from './../../app/services/util.service';
 import { NotificationService } from './../../app/services/notification.service';
-import { ApiService } from './../../app/services/api.service';
 import { TransfereService } from './../../app/services/transfer.service';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, Navbar } from 'ionic-angular';
@@ -29,7 +29,7 @@ export class TasksPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private transfereService: TransfereService,
-    private apiSrv: ApiService,
+    private apiSrv: ApiGetProvider,
     private notificationSrv: NotificationService,
     public modalCtrl: ModalController,
     ) {

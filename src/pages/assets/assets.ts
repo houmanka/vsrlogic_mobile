@@ -1,5 +1,5 @@
+import { ApiGetProvider } from './../../providers/api-get/api-get';
 import { AssetTabsPage } from './../asset-tabs/asset-tabs';
-import { ApiService } from './../../app/services/api.service';
 import { NotificationService } from './../../app/services/notification.service';
 import { TransfereService } from './../../app/services/transfer.service';
 import { Component } from '@angular/core';
@@ -23,7 +23,7 @@ export class AssetsPage {
     public navParams: NavParams,
     private transfereService: TransfereService,
     private notificationSrv: NotificationService,
-    private apiSrv: ApiService,
+    private apiSrv: ApiGetProvider,
     ) {
   }
 
