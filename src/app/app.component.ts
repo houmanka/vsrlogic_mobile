@@ -1,3 +1,5 @@
+import { SystemCheckProvider } from './../providers/system-check/system-check';
+import { StorageService } from './services/storage.service';
 import { LoginPage } from './../pages/login/login';
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
@@ -6,6 +8,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 @Component({
   templateUrl: 'app.html'
@@ -17,7 +20,9 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public androidPermissions: AndroidPermissions,
+    private sysCheck: SystemCheckProvider
+    ) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -35,6 +40,21 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      this.androidPermissions.requestPermissions(
+        [
+          this.androidPermissions.PERMISSION.CAMERA, 
+          this.androidPermissions.PERMISSION.ACCESS_WIFI_STATE, 
+          this.androidPermissions.PERMISSION.GET_ACCOUNTS, 
+          this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE, 
+          this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE
+        ]
+      );
+
+      const hasCamera = this.sysCheck.hasCamera();
+      StorageService.store('system', {camera: hasCamera})
+
+
     });
   }
 

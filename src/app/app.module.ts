@@ -1,3 +1,4 @@
+import { NoteFormPage } from './../pages/note-form/note-form';
 import { TruncatePipe } from './pipes/limited-to.pipe';
 import { SearchPage } from './../pages/search/search';
 import { AssetHistoryPage } from './../pages/asset-history/asset-history';
@@ -36,6 +37,13 @@ import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { ApiPostProvider } from '../providers/api-post/api-post';
 import { ApiGetProvider } from '../providers/api-get/api-get';
+import { TabNotifierProvider } from '../providers/tab-notifier/tab-notifier';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AutosizeDirective } from '../directives/autosize/autosize';
+import { Camera } from '@ionic-native/camera';
+import { Diagnostic } from '@ionic-native/diagnostic';
+import { SystemCheckProvider } from '../providers/system-check/system-check';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 @NgModule({
   declarations: [
@@ -56,13 +64,17 @@ import { ApiGetProvider } from '../providers/api-get/api-get';
     TaskNotesPage,
     AssetHistoryPage,
     SearchPage,
-    TruncatePipe
+    TruncatePipe,
+    NoteFormPage,
+    AutosizeDirective,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     SubAssetsPageModule,
     LoginPageModule,
+    FormsModule,
+    ReactiveFormsModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -83,7 +95,8 @@ import { ApiGetProvider } from '../providers/api-get/api-get';
     TaskDocumentPage,
     TaskNotesPage,
     AssetHistoryPage,
-    SearchPage
+    SearchPage,
+    NoteFormPage,
   ],
   providers: [
     StatusBar,
@@ -98,7 +111,12 @@ import { ApiGetProvider } from '../providers/api-get/api-get';
     SetTitleProvider,
     FileTransfer, FileTransferObject, File,
     ApiPostProvider,
-    ApiGetProvider
+    ApiGetProvider,
+    TabNotifierProvider,
+    Camera,
+    Diagnostic,
+    SystemCheckProvider,
+    AndroidPermissions
   ]
 })
 export class AppModule {}

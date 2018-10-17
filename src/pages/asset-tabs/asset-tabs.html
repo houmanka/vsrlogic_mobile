@@ -21,11 +21,15 @@
             (click)="history()" right end text-right >
                 <ion-icon name="clock"></ion-icon>
             </button>
+            <button ion-button (click)="add()">
+                <ion-icon name="add"></ion-icon>
+            </button>
         </ion-buttons>
+        
         <ion-title end>{{title}}</ion-title>
       </ion-toolbar>
 </ion-header>
-<ion-tabs>
+<ion-tabs #assetTabs>
     <ion-tab
     *ngFor="let item of tabs" 
     [root]="item.page" tabTitle="{{item.title}}" tabIcon="{{item.icon}}">

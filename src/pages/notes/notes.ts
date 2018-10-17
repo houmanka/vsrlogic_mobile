@@ -1,3 +1,7 @@
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
+import { NoteFormPage } from './../note-form/note-form';
+import { TabNotifierProvider } from './../../providers/tab-notifier/tab-notifier';
 import { ApiGetProvider } from './../../providers/api-get/api-get';
 import { FileOpener } from '@ionic-native/file-opener';
 import { UtilService } from './../../app/services/util.service';
@@ -5,7 +9,7 @@ import { APPCONFIG } from './../../app/config';
 import { TransfereService } from './../../app/services/transfer.service';
 import { NotificationService } from './../../app/services/notification.service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -21,13 +25,25 @@ export class NotesPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private apiSrv: ApiGetProvider,
     private notificationSrv: NotificationService,
-    private transferSrv: TransfereService, private fileOpener: FileOpener) {
+    private transferSrv: TransfereService,
+    private fileOpener: FileOpener,
+    private tabNotifier: TabNotifierProvider,
+    public modalCtrl: ModalController,
+    private transfer: FileTransfer,
+    private file: File
+    ) {
   }
+  fileTransfer: FileTransferObject = this.transfer.create();
 
   ionViewDidLoad() {
     this.asset = this.transferSrv.getData();
     this.setTitle(this.asset);
     this.getNotes(this.asset);
+    this.tabNotifier.event.subscribe( (data: any) => {
+      if (data === 'Notes' || data === 'Comments') {
+        this.presentFormModal();
+      }
+    })
   }
 
   setTitle(currentAsset) {
@@ -61,12 +77,28 @@ export class NotesPage {
     let filename = document.data.address
     filename = filename.replace(/^.*[\\\/]/, '')
     const ext = (/[.]/.exec(filename)) ? /[^.]+$/.exec(filename) : undefined;
-    if (ext[0] === 'png') {
-      this.fileOpener.open(document.data.address, 'image/png');
-    } else if(ext[0] === 'pdf') {
-      this.fileOpener.open(document.data.address, 'application/pdf');
-    }
-   
+    const mime = UtilService.getMIMEtype(ext[0]);
+    this.fileTransfer.download(document.data.address,
+      this.file.dataDirectory + filename).then((entry) => {
+      console.log('download complete: ' + entry.toURL());
+
+      const local = entry.toURL();
+      this.fileOpener.open(local, mime).then(() => {
+        console.log('File is opened'); 
+      }).catch(e => { 
+        console.log('Error opening file', e)
+      });
+    }, (error) => {
+      console.log('download is not completed');
+      console.log(error);
+    });
+  }
+
+  presentFormModal() {
+    let form = this.modalCtrl.create(NoteFormPage, { commentId: 0 }, {
+      cssClass: 'animated slideInRight'
+    });
+    form.present();
   }
 
 }
