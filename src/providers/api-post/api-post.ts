@@ -1,5 +1,5 @@
 import { APPCONFIG } from './../../app/config';
-import { DataStructure, ApiService } from './../../app/services/api.service';
+import { DataStructure, ApiService, ChecklistInterface, NoteInterface } from './../../app/services/api.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -29,13 +29,19 @@ export class ApiPostProvider {
         content: data.content
       }, headers);
   }
+
+  insertComment(data: NoteInterface) {
+    const headers = this.headers;
+    const url = `/comments`;
+    return this.http.post(this.apiUrl + url, data, headers);
+  }  
+
+  updateComment(data: NoteInterface) {
+    const headers = this.headers;
+    const url = `/comments/${data.id}`;
+    return this.http.put(this.apiUrl + url, data, headers);
+  }  
+
 }
 
-export interface ChecklistInterface {
-  completed: true,
-  content: "",
-  taskId: 0,
-  checkListGroupId: 0,
-  checklistId: 0
-}
 

@@ -44,6 +44,7 @@ import { Camera } from '@ionic-native/camera';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { SystemCheckProvider } from '../providers/system-check/system-check';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { ApiDeleteProvider } from '../providers/api-delete/api-delete';
 
 @NgModule({
   declarations: [
@@ -116,7 +117,8 @@ import { AndroidPermissions } from '@ionic-native/android-permissions';
     Camera,
     Diagnostic,
     SystemCheckProvider,
-    AndroidPermissions
+    AndroidPermissions,
+    ApiDeleteProvider
   ]
 })
 export class AppModule {}

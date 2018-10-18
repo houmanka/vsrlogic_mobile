@@ -1,7 +1,11 @@
+import { ApiPostProvider } from './../../providers/api-post/api-post';
+import { NoteInterface } from './../../app/services/api.service';
+import { NotesPage } from './../notes/notes';
 import { StorageService } from './../../app/services/storage.service';
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { ToastController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -13,8 +17,13 @@ export class NoteFormPage {
   public comment;
   public showCameraButton = false;
   private system;
+  public params;
+  public note: NoteInterface;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private camera: Camera,
+    public viewCtrl: ViewController,
+    private apiPost: ApiPostProvider,
+    private toastCtrl: ToastController
     
     ) {
   }
@@ -22,18 +31,46 @@ export class NoteFormPage {
   ionViewDidLoad() {
     this.system = StorageService.read('system');
     this.showCameraButton = this.system.camera;
+    this.params = this.navParams.get('params');
+    this.comment = this.params.data.content;
+    this.note = {
+      asset_id: this.params.asset_id,
+      resource: "assets",
+      resource_id: this.params.asset_id,
+      parent_id: this.params.data.parent_id,
+      content: this.params.data.content,
+      id: this.params.id
+    }
   }
 
   
   submit() {
     console.log(this.comment);
+    const data: NoteInterface = {
+      asset_id: this.params.asset_id,
+      resource: "assets",
+      resource_id: this.params.asset_id,
+      parent_id: this.params.data.parent_id,
+      content: this.comment,
+      id: this.params.id
+    }
+    this.apiPost.updateComment(data).subscribe( (res: any) => {
+      this.presentToast('Updated Successfully');
+      this.navCtrl.popTo(NotesPage);
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   cancel() {
-    this.navCtrl.pop({
-      animate: true,
-      animation: 'animated slideInLeft',
-   });
+    // Check for deletion
+    // delete the comment if there is nothing in it
+    this.notifyBackend(this.comment);
+    this.navCtrl.popTo(NotesPage);
+  }
+
+  notifyBackend(comment?) {
+    console.log("NOTIFY BACKEND, SO CLEANER CAN KICK IN")
   }
 
   takePhoto() {
@@ -55,4 +92,20 @@ export class NoteFormPage {
     }
   }
 
+  presentToast(msg: string) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'top'
+    });
+  
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+  
+    toast.present();
+  }
+
 }
+
+

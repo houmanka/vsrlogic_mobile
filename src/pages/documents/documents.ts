@@ -37,16 +37,8 @@ export class DocumentsPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad DocumentsPage');
     this.asset = this.transferSrv.getData();
-    this.setTitle(this.asset);
+    this.title = UtilService.setTitle(this.asset, 'Sub Assets');
     this.getDocs(this.asset);
-  }
-
-  setTitle(currentAsset) {
-    if (UtilService.empty(currentAsset)) {
-      this.title = 'Sub Assets'
-    } else {
-      this.title = currentAsset.asset_name;
-    }
   }
 
   private getDocs(item) {

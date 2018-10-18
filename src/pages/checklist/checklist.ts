@@ -1,4 +1,5 @@
-import { ChecklistInterface, ApiPostProvider } from './../../providers/api-post/api-post';
+import { ChecklistInterface } from './../../app/services/api.service';
+import { ApiPostProvider } from './../../providers/api-post/api-post';
 import { ApiGetProvider } from './../../providers/api-get/api-get';
 import { NotificationService } from './../../app/services/notification.service';
 import { Component } from '@angular/core';

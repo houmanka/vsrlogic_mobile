@@ -44,12 +44,25 @@ export class ApiService {
 
 }
 
-/**
- * An interface to make sure usages are compliance to ApiService
- * @export
- * @interface DataStructure
- */
 export interface DataStructure {
     data: any
 }
+
+export interface NoteInterface {
+  asset_id: 0,
+  resource: "assets",
+  resource_id: 0,
+  parent_id: 0,
+  content: "Enter your Comment...",
+  id: 0
+}
+
+export interface ChecklistInterface {
+  completed: true,
+  content: "",
+  taskId: 0,
+  checkListGroupId: 0,
+  checklistId: 0
+}
+
 

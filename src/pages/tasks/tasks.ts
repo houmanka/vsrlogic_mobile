@@ -43,20 +43,13 @@ export class TasksPage {
       this.getTasks();
     } else {
       const currentAsset = this.transfereService.getData();
-      this.setTitle(currentAsset);
+      this.title = UtilService.setTitle(currentAsset, 'Sub Assets');
+
       // this.transfereService.clearData();
       if (!UtilService.empty(currentAsset)) {
         this.getTasks(currentAsset);
         this.tasks = []
       }
-    }
-  }
-
-  setTitle(currentAsset) {
-    if (UtilService.empty(currentAsset)) {
-      this.title = 'Sub Assets'
-    } else {
-      this.title = currentAsset.asset_name;
     }
   }
 

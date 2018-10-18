@@ -32,7 +32,8 @@ export class AssetHistoryPage {
 
   ionViewDidLoad() {
     const currentAsset = this.transfereService.getData();
-    this.setTitle(currentAsset);
+    this.title = UtilService.setTitle(currentAsset, 'History');
+
     if (!UtilService.empty(currentAsset)) {
       this.getHistory(currentAsset);
     }
@@ -45,14 +46,6 @@ export class AssetHistoryPage {
     (error) => {
       this.notificationSrv.notify('Error', error);
     });
-  }
-
-  setTitle(currentAsset) {
-    if (UtilService.empty(currentAsset)) {
-      this.title = 'History'
-    } else {
-      this.title = currentAsset.asset_name;
-    }
   }
 
 }

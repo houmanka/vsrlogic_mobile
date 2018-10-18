@@ -120,5 +120,12 @@ export class UtilService {
     return MIMETypes[ext];
   }
 
+  public static setTitle(currentAsset, alt: string) {
+    if (UtilService.empty(currentAsset)) {
+      return alt
+    } else {
+      return currentAsset.asset_name;
+    }
+  }
 
 }

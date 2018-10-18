@@ -63,11 +63,11 @@ export class AssetTabsPage {
   }
 
   home() {
-    this.navCtrl.push(AssetsPage);
+    this.navCtrl.popTo(AssetsPage);
   }
 
   dashboard() {
-    this.navCtrl.push(HomePage);
+    this.navCtrl.popTo(HomePage);
   }
   
   history() {

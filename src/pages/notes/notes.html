@@ -7,9 +7,23 @@
 </ion-header>
 
 <ion-content padding>
+    <ion-fab  bottom right >
+        <button ion-fab (click)="add()">
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </ion-fab>
+      
     <ion-card *ngFor="let note_group of notes">
       <ion-card-content>
         <p style="white-space: pre-line" [innerHTML]="conversion(note_group.data.content)"></p>
+        <ion-item text-right>
+            <button ion-button right>
+                <ion-icon name="undo"></ion-icon>
+            </button>
+            <button ion-button right (click)="delete(note_group)">
+                <ion-icon name="trash"></ion-icon>
+            </button>
+        </ion-item>	
       </ion-card-content>
       <ion-list *ngIf="note_group.data.documents.length > 0" >
           <ion-item no-lines >
@@ -22,11 +36,6 @@
                 />
               </div>			
             </div>
-          </ion-item>	
-          <ion-item text-right>
-              <button ion-button icon-end right>
-                  <ion-icon name="undo"></ion-icon>
-              </button>
           </ion-item>	
       </ion-list>
 
@@ -43,6 +52,11 @@
                   />
                 </div>			
               </div>
+              <ion-item text-right>
+                  <button ion-button right (click)="delete(note)">
+                      <ion-icon name="trash"></ion-icon>
+                  </button>
+              </ion-item>	
             </ion-card-content>
         </ion-card>        
       </ion-card>
