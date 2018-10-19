@@ -96,8 +96,12 @@ export class NotesPage {
     form.present();
   }
 
-  add() {
-    this.insertPrimaryNote();
+  add(note?) {
+    this.insertPrimaryNote(note);
+  }
+
+  reply(note) {
+    this.insertPrimaryNote(note, true);
   }
 
   delete(note) {
@@ -113,20 +117,38 @@ export class NotesPage {
     });
   }
 
-  private insertPrimaryNote() {
+  private insertPrimaryNote(note?, reply?: boolean) {
+    let contents;
+    let parent;
+    let type = 'insert';
+    if ( UtilService.empty(note) && UtilService.empty(reply) ) {
+      contents = "Enter your Comment...";
+      parent = null;
+    } else if ( !UtilService.empty(note) && reply === true ) {
+      contents = "Enter your Comment...";
+      parent = note.id
+      type = 'insert';
+    } else if ( !UtilService.empty(note) && UtilService.empty(reply) )  {
+      contents = note.data.content;
+      type = 'edit';
+    }
     const data: NoteInterface = {
       asset_id: this.asset.asset_id,
       resource: "assets",
       resource_id: this.asset.asset_id,
-      parent_id: null,
-      content: "Enter your Comment...",
+      parent_id: parent,
+      content: contents,
       id: null
     }
-    this.apiPostSrv.insertComment(data).subscribe( (res: any) => {
-      this.presentFormModal({params: res});
-    }, (error) => {
-      console.log(error);
-    });
+    if (type === 'insert') {
+      this.apiPostSrv.insertComment(data).subscribe( (res: any) => {
+        this.presentFormModal({params: res});
+      }, (error) => {
+        console.log(error);
+      });
+    } else {
+      this.presentFormModal({params: note});
+    }
   }
 
   presentToast(msg: string) {

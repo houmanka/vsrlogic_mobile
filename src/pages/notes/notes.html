@@ -17,7 +17,10 @@
       <ion-card-content>
         <p style="white-space: pre-line" [innerHTML]="conversion(note_group.data.content)"></p>
         <ion-item text-right>
-            <button ion-button right>
+            <button ion-button right (click)="add(note_group)">
+                <ion-icon name="create"></ion-icon>
+            </button>
+            <button ion-button right (click)="reply(note_group)" >
                 <ion-icon name="undo"></ion-icon>
             </button>
             <button ion-button right (click)="delete(note_group)">
@@ -53,6 +56,9 @@
                 </div>			
               </div>
               <ion-item text-right>
+                  <button ion-button right (click)="add(note)">
+                      <ion-icon name="create"></ion-icon>
+                  </button>
                   <button ion-button right (click)="delete(note)">
                       <ion-icon name="trash"></ion-icon>
                   </button>
