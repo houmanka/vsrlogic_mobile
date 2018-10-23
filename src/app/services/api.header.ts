@@ -45,6 +45,7 @@ export class ApiHeader {
 
   private static companyHeaders(headers: Headers): Headers {
     const currentUser: any = StorageService.read('currentUser');
+    debugger
     if (currentUser != null) {
       headers.append('company', currentUser.company_id);
     } else {

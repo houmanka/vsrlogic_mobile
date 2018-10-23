@@ -1,6 +1,7 @@
 import { StorageService } from './storage.service';
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
+import { UtilService } from './util.service';
 
 
 @Injectable()
@@ -11,13 +12,16 @@ export class ApiService {
   public headers() {
     const authToken = StorageService.read('token');
     const currentUser: any = StorageService.read('currentUser');
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': `Bearer ${authToken}`,
-        'company': `${currentUser.company_id}`
-      })
-    };
+    let httpOptions;
+    if ( !UtilService.empty(authToken) && !UtilService.empty(currentUser) ) {
+      httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          'Authorization': `Bearer ${authToken}`,
+          'company': `${currentUser.company_id}`
+        })
+      };
+    }
 
     return httpOptions;
   }

@@ -9,12 +9,12 @@
       // const year = date.getFullYear();
       let apiUrl = '';
 
-      ENV = 'dev'; 
+      ENV = 'dry-run'; 
 
       if (ENV === 'dev') {
         apiUrl = 'http://172.21.0.8:4000';
       } else if (ENV === 'dry-run') {
-        apiUrl = 'http://172.21.0.10';
+        apiUrl = 'http://mock.vsrlogic.com';
       } else if (ENV === 'prod') {
         apiUrl = 'https://vsrlogic.com';
       }
@@ -29,5 +29,5 @@
 
       return AppConfig;
     }
-
+ 
     export const APPCONFIG = makeAppConfig();
