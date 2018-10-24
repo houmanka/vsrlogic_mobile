@@ -1,3 +1,4 @@
+import { LoaderProvider } from './../../providers/loader/loader';
 import { ApiGetProvider } from './../../providers/api-get/api-get';
 import { TransfereService } from './../../app/services/transfer.service';
 import { NotificationService } from './../../app/services/notification.service';
@@ -25,6 +26,7 @@ export class GlobalHistoryPage {
     private notificationSrv: NotificationService,
     private apiSrv: ApiGetProvider,
     private transfereService: TransfereService,
+    private loader: LoaderProvider
     ) {
   }
 
@@ -33,20 +35,26 @@ export class GlobalHistoryPage {
   }
 
   private getHistory() {
+    this.loader.presentLoadingDefault();
     this.apiSrv.globalHistory().subscribe( (res: any) => {
       this.history = res;
+      this.loader.dismiss();
     },
     (error) => {
+      this.loader.dismiss();
       this.notificationSrv.notify('Error', error);
     });
   }
 
   public goToAsset(history) {
+    this.loader.presentLoadingDefault();
     this.apiSrv.singleAsset(history.access_control.asset_id).subscribe( (res: any) => {
+      this.loader.dismiss();
       this.transfereService.setData(res);
       this.navCtrl.push(AssetTabsPage);
     },
     (error) => {
+      this.loader.dismiss();
       this.notificationSrv.notify('Error', error);
     });
   }

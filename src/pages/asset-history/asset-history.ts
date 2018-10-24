@@ -1,3 +1,4 @@
+import { LoaderProvider } from './../../providers/loader/loader';
 import { ApiGetProvider } from './../../providers/api-get/api-get';
 import { UtilService } from './../../app/services/util.service';
 import { TransfereService } from './../../app/services/transfer.service';
@@ -27,6 +28,7 @@ export class AssetHistoryPage {
     private notificationSrv: NotificationService,
     private apiSrv: ApiGetProvider,
     private transfereService: TransfereService,
+    private loader: LoaderProvider
     ) {
   }
 
@@ -40,10 +42,13 @@ export class AssetHistoryPage {
   }
 
   private getHistory(currentAsset) {
+    this.loader.presentLoadingDefault();
     this.apiSrv.assetHistory(currentAsset.asset_id).subscribe( (res: any) => {
+      this.loader.dismiss();
       this.history = res;
     },
     (error) => {
+      this.loader.dismiss();
       this.notificationSrv.notify('Error', error);
     });
   }

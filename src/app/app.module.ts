@@ -45,6 +45,7 @@ import { Diagnostic } from '@ionic-native/diagnostic';
 import { SystemCheckProvider } from '../providers/system-check/system-check';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { ApiDeleteProvider } from '../providers/api-delete/api-delete';
+import { LoaderProvider } from '../providers/loader/loader';
 
 @NgModule({
   declarations: [
@@ -118,7 +119,8 @@ import { ApiDeleteProvider } from '../providers/api-delete/api-delete';
     Diagnostic,
     SystemCheckProvider,
     AndroidPermissions,
-    ApiDeleteProvider
+    ApiDeleteProvider,
+    LoaderProvider
   ]
 })
 export class AppModule {}

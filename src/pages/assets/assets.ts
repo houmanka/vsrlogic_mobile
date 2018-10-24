@@ -4,6 +4,7 @@ import { NotificationService } from './../../app/services/notification.service';
 import { TransfereService } from './../../app/services/transfer.service';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { LoaderProvider } from '../../providers/loader/loader';
 
 /**
  * Generated class for the AssetsPage page.
@@ -24,6 +25,7 @@ export class AssetsPage {
     private transfereService: TransfereService,
     private notificationSrv: NotificationService,
     private apiSrv: ApiGetProvider,
+    private loader: LoaderProvider,
     ) {
   }
 
@@ -32,11 +34,14 @@ export class AssetsPage {
   }
 
   private getRootAssets() {
+    this.loader.presentLoadingDefault()
     this.apiSrv.rootAssets().subscribe( (res: any) => {
       this.assets = res;
+      this.loader.dismiss();
     },
     (error) => {
       this.notificationSrv.notify('Error', error);
+      this.loader.dismiss();
     });
   }
 

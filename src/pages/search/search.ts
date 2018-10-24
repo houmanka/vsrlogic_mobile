@@ -1,3 +1,4 @@
+import { LoaderProvider } from './../../providers/loader/loader';
 import { ApiGetProvider } from './../../providers/api-get/api-get';
 import { StorageService } from './../../app/services/storage.service';
 import { TransfereService } from './../../app/services/transfer.service';
@@ -5,7 +6,6 @@ import { UtilService } from './../../app/services/util.service';
 import { NotificationService } from './../../app/services/notification.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { LoadingController } from 'ionic-angular';
 import { AssetTabsPage } from '../asset-tabs/asset-tabs';
 /**
  * Generated class for the SearchPage page.
@@ -21,21 +21,20 @@ import { AssetTabsPage } from '../asset-tabs/asset-tabs';
 })
 export class SearchPage {
   public searchRes = [];
-  private loading;
   public searchReq;
   public showBack = false;
   private assetId;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private notificationSrv: NotificationService,
     private apiSrv: ApiGetProvider,
-    public loadingCtrl: LoadingController,
-    private transferSrv: TransfereService
+    private transferSrv: TransfereService,
+    private loader: LoaderProvider
     ) {
   }
 
   ionViewDidLoad() {
-    if(!UtilService.empty(this.loading)){
-      this.loading.dismiss();
+    if(!UtilService.empty(this.loader)){
+      this.loader.dismiss();
     }
 
     const params = this.navParams.get('params');
@@ -52,26 +51,19 @@ export class SearchPage {
   }
 
   public search(keyword, saveIt) {
-    this.presentLoadingDefault();
+    this.loader.presentLoadingDefault();
     if (saveIt) {
       StorageService.store('search', keyword);
     }
     this.apiSrv.search(keyword, this.assetId).subscribe( (res: any) => {
       this.searchRes = res;
-      this.loading.dismiss();
+      this.loader.dismiss();
     },
     (error) => {
+      this.loader.dismiss();
       this.notificationSrv.notify('Error', error);
-      this.loading.dismiss();
     });
-  }
-
-  presentLoadingDefault() {
-    this.loading = this.loadingCtrl.create({
-      content: 'Please wait...'
-    });
-    this.loading.present();
-  }
+  }  
 
   submitSearch(event) {
     if (UtilService.empty(this.assetId)) {
@@ -84,15 +76,15 @@ export class SearchPage {
   }
 
   navigateTo(item) {
-    this.presentLoadingDefault();
+    this.loader.presentLoadingDefault();
     this.apiSrv.singleAsset(item.asset_id).subscribe( (res: any) => {
       this.transferSrv.setData(res);
-      this.loading.dismiss();
+      this.loader.dismiss();
       this.navCtrl.push(AssetTabsPage);
     },
     (error) => {
       this.notificationSrv.notify('Error', error);
-      this.loading.dismiss();
+      this.loader.dismiss();
     });
   }
 

@@ -1,3 +1,4 @@
+import { LoaderProvider } from './../../providers/loader/loader';
 import { ApiGetProvider } from './../../providers/api-get/api-get';
 import { UtilService } from './../../app/services/util.service';
 import { FileOpener } from '@ionic-native/file-opener';
@@ -29,7 +30,8 @@ export class DocumentsPage {
     private transferSrv: TransfereService,
     private fileOpener: FileOpener,
     private transfer: FileTransfer,
-    private file: File
+    private file: File,
+    private loader: LoaderProvider
     ) {
   }
   fileTransfer: FileTransferObject = this.transfer.create();
@@ -42,10 +44,13 @@ export class DocumentsPage {
   }
 
   private getDocs(item) {
+    this.loader.presentLoadingDefault();
     this.documentSub = this.apiSrv.documents(item).subscribe( (res: any) => {
       this.documents = res;
+      this.loader.dismiss();
     },
     (error) => {
+      this.loader.dismiss();
       this.notificationSrv.notify('Error', error);
     });
   }

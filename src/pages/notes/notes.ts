@@ -1,3 +1,4 @@
+import { LoaderProvider } from './../../providers/loader/loader';
 import { ApiDeleteProvider } from './../../providers/api-delete/api-delete';
 import { NoteInterface } from './../../app/services/api.service';
 import { ApiPostProvider } from './../../providers/api-post/api-post';
@@ -38,7 +39,8 @@ export class NotesPage {
     private transfer: FileTransfer,
     private file: File,
     private toastCtrl: ToastController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private loader: LoaderProvider,
     ) {
   }
   fileTransfer: FileTransferObject = this.transfer.create();
@@ -50,10 +52,13 @@ export class NotesPage {
   }
 
   private getNotes(item) {
+    this.loader.presentLoadingDefault();
     this.apiSrv.commentList(item.asset_id).subscribe( (res: any) => {
       this.notes = res;
+      this.loader.dismiss();
     },
     (error) => {
+      this.loader.dismiss();
       this.notificationSrv.notify('Error', error);
     });
   }
@@ -109,11 +114,14 @@ export class NotesPage {
   }
 
   deleteConfirmed(note) {
+    this.loader.presentLoadingDefault();
     this.apiDeleteSrv.deleteComment(note.id).subscribe( (res: any) => {
+      this.loader.dismiss();
       this.presentToast('Deleted Successfully');
       this.getNotes(this.asset);
     }, (error) => {
-      console.log(error);
+      this.loader.dismiss();
+      this.notificationSrv.notify('Error', error);
     });
   }
 
@@ -141,12 +149,16 @@ export class NotesPage {
       id: null
     }
     if (type === 'insert') {
+      this.loader.presentLoadingDefault();
       this.apiPostSrv.insertComment(data).subscribe( (res: any) => {
+        this.loader.dismiss();
         this.presentFormModal({params: res});
       }, (error) => {
-        console.log(error);
+        this.loader.dismiss();
+        this.notificationSrv.notify('Error', error);
       });
     } else {
+      this.loader.dismiss();
       this.presentFormModal({params: note});
     }
   }

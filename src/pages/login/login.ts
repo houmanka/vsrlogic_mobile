@@ -1,3 +1,4 @@
+import { LoaderProvider } from './../../providers/loader/loader';
 import { ApiPostProvider } from './../../providers/api-post/api-post';
 import { UtilService } from './../../app/services/util.service';
 import { HomePage } from './../home/home';
@@ -30,6 +31,7 @@ export class LoginPage {
     public navParams: NavParams,
     private apiSrv: ApiPostProvider,
     private notificationSrv: NotificationService,
+    private loader: LoaderProvider
     ) {
   }
 
@@ -57,6 +59,7 @@ export class LoginPage {
   public login() {
     const user = new User(this.username, this.password, null);
     const data = user.userLogin();
+    this.loader.presentLoadingDefault();
     this.apiSrv.login(data).subscribe( (res: any) => {
       const fetchedData = res;
       const currentUser = {
@@ -68,8 +71,10 @@ export class LoginPage {
       };
       StorageService.store('currentUser', currentUser);
       StorageService.store('token', fetchedData.jwt);
+      this.loader.dismiss();
       this.navCtrl.push(HomePage);
     }, (error: any) => {
+      this.loader.dismiss();
       this.notificationSrv.notify('Login Error', error);
     });
   }
