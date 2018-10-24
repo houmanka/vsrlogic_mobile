@@ -1,3 +1,4 @@
+import { LoaderProvider } from './../../providers/loader/loader';
 import { ApiGetProvider } from './../../providers/api-get/api-get';
 import { TaskDetailsPage } from './../task-details/task-details';
 import { Subscription } from 'rxjs/Subscription';
@@ -32,6 +33,7 @@ export class TasksPage {
     private apiSrv: ApiGetProvider,
     private notificationSrv: NotificationService,
     public modalCtrl: ModalController,
+    private loader: LoaderProvider,
     ) {
   }
 
@@ -54,18 +56,23 @@ export class TasksPage {
   }
 
   private getTasks(item?) {
+    this.loader.presentLoadingDefault();
     if (UtilService.empty(item)) {
       this.tasksSub = this.apiSrv.globalTasks().subscribe( (res: any) => {
         this.tasks = res;
+        this.loader.dismiss();
       },
       (error) => {
+        this.loader.dismiss();
         this.notificationSrv.notify('Error', error);
       });
     } else {
       this.tasksSub = this.apiSrv.assetTasks(item).subscribe( (res: any) => {
         this.tasks = res;
+        this.loader.dismiss();      
       },
       (error) => {
+        this.loader.dismiss();
         this.notificationSrv.notify('Error', error);
       });
     }

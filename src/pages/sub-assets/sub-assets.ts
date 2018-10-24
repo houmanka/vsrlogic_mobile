@@ -1,3 +1,4 @@
+import { LoaderProvider } from './../../providers/loader/loader';
 import { ApiGetProvider } from './../../providers/api-get/api-get';
 import { SetTitleProvider } from './../../providers/set-title/set-title';
 import { NotificationService } from './../../app/services/notification.service';
@@ -32,7 +33,8 @@ export class SubAssetsPage {
     private transfereService: TransfereService,
     private apiSrv: ApiGetProvider,
     private notificationSrv: NotificationService,
-    private setTitleP: SetTitleProvider
+    private setTitleP: SetTitleProvider,
+    private loader: LoaderProvider,
     ) {
   }
 
@@ -53,10 +55,13 @@ export class SubAssetsPage {
   }
 
   private getSubAssets(item) {
+    this.loader.presentLoadingDefault();
     this.subAssetSubs = this.apiSrv.subAssets(item).subscribe( (res: any) => {
       this.assets = res;
+      this.loader.dismiss();
     },
     (error) => {
+      this.loader.dismiss();
       this.notificationSrv.notify('Error', error);
     });
   }
