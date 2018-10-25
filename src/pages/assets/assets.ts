@@ -1,10 +1,13 @@
+import { UtilService } from './../../app/services/util.service';
+import { AssetFormPage } from './../asset-form/asset-form';
 import { ApiGetProvider } from './../../providers/api-get/api-get';
 import { AssetTabsPage } from './../asset-tabs/asset-tabs';
 import { NotificationService } from './../../app/services/notification.service';
 import { TransfereService } from './../../app/services/transfer.service';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { LoaderProvider } from '../../providers/loader/loader';
+import { AssetPostInterface } from '../../app/services/api.service';
 
 /**
  * Generated class for the AssetsPage page.
@@ -26,6 +29,7 @@ export class AssetsPage {
     private notificationSrv: NotificationService,
     private apiSrv: ApiGetProvider,
     private loader: LoaderProvider,
+    public modalCtrl: ModalController,
     ) {
   }
 
@@ -46,10 +50,33 @@ export class AssetsPage {
   }
 
   public navigate(item) {
-    console.log(item);
     this.transfereService.setData(item);
     // this.navCtrl.push('sub_asset');
     this.navCtrl.push(AssetTabsPage);
+  }
+
+  add(item?) {
+    let data: AssetPostInterface;
+    if (!UtilService.empty(item)) {
+      data = {
+        asset_id: item.asset_id,
+        parent_id: item.parent_id,
+        asset_name: item.asset_name,
+        description: item.description
+      }
+    } else {
+      data = undefined;
+    }
+    this.presentFormModal({params: data});
+  }
+
+
+  presentFormModal(params?) {
+    let form = this.modalCtrl.create(AssetFormPage, params);
+    form.onDidDismiss(() => {
+      this.getRootAssets();
+    });
+    form.present();
   }
 
 }

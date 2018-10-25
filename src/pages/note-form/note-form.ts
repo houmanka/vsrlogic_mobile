@@ -5,7 +5,7 @@ import { StorageService } from './../../app/services/storage.service';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { ToastController } from 'ionic-angular';
+import { NotificationService } from '../../app/services/notification.service';
 
 @IonicPage()
 @Component({
@@ -23,8 +23,7 @@ export class NoteFormPage {
     private camera: Camera,
     public viewCtrl: ViewController,
     private apiPost: ApiPostProvider,
-    private toastCtrl: ToastController
-    
+    private notificationSrv: NotificationService  
     ) {
   }
 
@@ -55,7 +54,7 @@ export class NoteFormPage {
       id: this.params.id
     }
     this.apiPost.updateComment(data).subscribe( (res: any) => {
-      this.presentToast('Updated Successfully');
+      this.notificationSrv.notify('Notice', 'Updated Successfully', null, 'toast');
       this.navCtrl.popTo(NotesPage);
     }, (error) => {
       console.log(error);
@@ -90,20 +89,6 @@ export class NoteFormPage {
         // Handle error
       });
     }
-  }
-
-  presentToast(msg: string) {
-    let toast = this.toastCtrl.create({
-      message: msg,
-      duration: 3000,
-      position: 'top'
-    });
-  
-    toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
-    });
-  
-    toast.present();
   }
 
 }

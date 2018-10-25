@@ -1,5 +1,5 @@
 import { APPCONFIG } from './../../app/config';
-import { DataStructure, ApiService, ChecklistInterface, NoteInterface } from './../../app/services/api.service';
+import { DataStructure, ApiService, ChecklistInterface, NoteInterface, AssetPostInterface } from './../../app/services/api.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -41,6 +41,18 @@ export class ApiPostProvider {
     const url = `/comments/${data.id}`;
     return this.http.put(this.apiUrl + url, data, headers);
   }  
+
+  assetForm(data: AssetPostInterface) {
+    const headers = this.headers;
+    const url = `/assets`;
+    return this.http.post(this.apiUrl + url, data, headers);
+  }  
+
+  updateAssetForm(data: AssetPostInterface) {
+    const headers = this.headers;
+    const url = `/assets/${data.asset_id}`;
+    return this.http.put(this.apiUrl + url, data, headers);
+  } 
 
 }
 

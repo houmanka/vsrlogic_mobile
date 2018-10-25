@@ -1,15 +1,15 @@
+import { UtilService } from './util.service';
 import { Injectable } from '@angular/core';
-// import { NotificationsService } from 'angular2-notifications-lite';
-import { AlertController } from 'ionic-angular';
+import { AlertController, ToastController } from 'ionic-angular';
 
 @Injectable()
 export class NotificationService {
-    constructor(public alertController: AlertController) {
+    constructor(public alertController: AlertController, private toastCtrl: ToastController) {
         // empty
       }
       private finalMessage: any;
 
-    public notify(msgType, msg, args?) {
+    public notify(msgType, msg, args?, type?) {
         this.finalMessage = [false, msg];
         this.finalMessage = this.messageOriginal(this.finalMessage);
         this.finalMessage = this.messageDifferentJson(this.finalMessage);
@@ -19,9 +19,26 @@ export class NotificationService {
         if (typeof fMsg === 'object') {
             fMsg = 'Oh dear, somthing gone wrong! Please contact the support team';
         }
-
-        this.presentAlert(msgType, fMsg);
+        if (UtilService.empty(type)) {
+            this.presentAlert(msgType, fMsg);
+        } else {
+            this.presentToast(fMsg);
+        }
     }
+
+    private presentToast(msg: string) {
+        let toast = this.toastCtrl.create({
+          message: msg,
+          duration: 3000,
+          position: 'top'
+        });
+      
+        toast.onDidDismiss(() => {
+          console.log('Dismissed toast');
+        });
+      
+        toast.present();
+      }
 
     private messageOriginal(msg: any): any {
         if (msg[0] === true) {

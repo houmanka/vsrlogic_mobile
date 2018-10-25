@@ -69,4 +69,12 @@ export interface ChecklistInterface {
   checklistId: 0
 }
 
+export interface AssetPostInterface {
+    parent_id: null,
+    asset_id: null,
+    asset_name: string,
+    description: string
+}
+
+
 
