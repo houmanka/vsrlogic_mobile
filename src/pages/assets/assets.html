@@ -1,17 +1,24 @@
 <ion-header>
   <ion-navbar>
     <ion-title text-center>Assets</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="add()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
     <ion-list>
         <ion-item 
-        (click)="navigate(item)"
         detail lines="full" *ngFor="let item of assets" >
-          <ion-label>
+          <ion-label (click)="navigate(item)">
             {{item.asset_name}}
           </ion-label>
+          <button ion-button item-end (click)="add(item)">
+            <ion-icon name="create"></ion-icon>
+          </button>
         </ion-item>
     </ion-list>
 </ion-content>

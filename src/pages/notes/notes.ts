@@ -10,11 +10,10 @@ import { FileOpener } from '@ionic-native/file-opener';
 import { UtilService } from './../../app/services/util.service';
 import { APPCONFIG } from './../../app/config';
 import { TransfereService } from './../../app/services/transfer.service';
-import { NotificationService } from './../../app/services/notification.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { ToastController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { NotificationService } from '../../app/services/notification.service';
 
 
 @IonicPage()
@@ -38,7 +37,6 @@ export class NotesPage {
     public modalCtrl: ModalController,
     private transfer: FileTransfer,
     private file: File,
-    private toastCtrl: ToastController,
     private alertCtrl: AlertController,
     private loader: LoaderProvider,
     ) {
@@ -117,7 +115,7 @@ export class NotesPage {
     this.loader.presentLoadingDefault();
     this.apiDeleteSrv.deleteComment(note.id).subscribe( (res: any) => {
       this.loader.dismiss();
-      this.presentToast('Deleted Successfully');
+      this.notificationSrv.notify('Notice', 'Deleted Successfully', null, 'toast');
       this.getNotes(this.asset);
     }, (error) => {
       this.loader.dismiss();
@@ -161,20 +159,6 @@ export class NotesPage {
       this.loader.dismiss();
       this.presentFormModal({params: note});
     }
-  }
-
-  presentToast(msg: string) {
-    let toast = this.toastCtrl.create({
-      message: msg,
-      duration: 3000,
-      position: 'top'
-    });
-  
-    toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
-    });
-  
-    toast.present();
   }
 
   presentConfirm(note) {

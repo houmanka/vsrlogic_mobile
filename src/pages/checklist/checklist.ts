@@ -4,7 +4,6 @@ import { ApiGetProvider } from './../../providers/api-get/api-get';
 import { NotificationService } from './../../app/services/notification.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ToastController } from 'ionic-angular';
 /**
  * Generated class for the ChecklistPage page.
  *
@@ -29,7 +28,6 @@ export class ChecklistPage {
     private apiSrv: ApiGetProvider,
     private apiPost: ApiPostProvider,
     private notificationSrv: NotificationService,
-    private toastCtrl: ToastController
     ) {
   }
 
@@ -53,25 +51,11 @@ export class ChecklistPage {
       checklistId:checklist.id
     }
     this.apiPost.updateChecklist(checklistObj).subscribe( (res: any) => {
-      this.presentToast('Updated Successfully')
+      this.notificationSrv.notify('Notice', 'Updated Successfully', null, 'toast');
     },
     (error) => {
       this.notificationSrv.notify('Error', error);
     });
-  }
-
-  presentToast(msg: string) {
-    let toast = this.toastCtrl.create({
-      message: msg,
-      duration: 3000,
-      position: 'top'
-    });
-  
-    toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
-    });
-  
-    toast.present();
   }
 
 }

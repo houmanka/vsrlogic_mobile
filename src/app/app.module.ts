@@ -1,3 +1,4 @@
+import { AssetFormPage } from './../pages/asset-form/asset-form';
 import { NoteFormPage } from './../pages/note-form/note-form';
 import { TruncatePipe } from './pipes/limited-to.pipe';
 import { SearchPage } from './../pages/search/search';
@@ -69,6 +70,7 @@ import { LoaderProvider } from '../providers/loader/loader';
     TruncatePipe,
     NoteFormPage,
     AutosizeDirective,
+    AssetFormPage
   ],
   imports: [
     BrowserModule,
@@ -99,6 +101,7 @@ import { LoaderProvider } from '../providers/loader/loader';
     AssetHistoryPage,
     SearchPage,
     NoteFormPage,
+    AssetFormPage,
   ],
   providers: [
     StatusBar,
