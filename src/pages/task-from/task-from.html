@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar></ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons start left>
+            <button ion-button (click)="back()">
+              Cancel
+            </button>
+          </ion-buttons>
+        <ion-title text-center>Task</ion-title>
+        <ion-buttons end right>
+            <button ion-button (click)="add()">
+              Create
+            </button>
+          </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+    <form>
+      <ion-item>
+        <ion-label color="primary">Task Name</ion-label>
+        <ion-input 
+        placeholder="Task Name..."
+        [ngModelOptions]="{standalone: true}"
+        [(ngModel)]="task.name"
+        name="name"
+        required
+        clearInput
+        #myInput id="myInput"
+        ></ion-input> 
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary">Description</ion-label>
+        <ion-textarea 
+        autosize
+        [ngModelOptions]="{standalone: true}"
+        placeholder="Description..."
+        [(ngModel)]="task.description"
+        name="description"
+        required
+        clearInput
+        #myInput id="myInput"
+        ></ion-textarea> 
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary">Due By</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY"
+        min="{{min}}" max="{{max}}"
+        [ngModelOptions]="{standalone: true}"
+        pickerFormat="DD MM YYYY" [(ngModel)]="task.due_by"></ion-datetime>
+      </ion-item>
+        <ion-list
+        style="padding-top: 20px;"
+        radio-group
+        [ngModelOptions]="{standalone: true}"
+        [(ngModel)]="task.status">
+            <ion-item>
+              <ion-label>WIP</ion-label>
+              <ion-radio value="wip"></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label>Overdue</ion-label>
+              <ion-radio value="overdue"></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label>Completed</ion-label>
+              <ion-radio value="completed"></ion-radio>
+            </ion-item>
+        </ion-list>
+      
+  </form>
+</ion-content>

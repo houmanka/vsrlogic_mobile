@@ -76,5 +76,14 @@ export interface AssetPostInterface {
     description: string
 }
 
+export interface TaskPostInterface {
+  name: string,
+  description: string,
+  status: string,
+  due_by: string,
+  task_id: 0,
+  asset_id: 0
+}
+
 
 

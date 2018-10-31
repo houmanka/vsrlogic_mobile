@@ -8,7 +8,7 @@ import { SubAssetsPage } from './../sub-assets/sub-assets';
 import { NotesPage } from './../notes/notes';
 import { DocumentsPage } from './../documents/documents';
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Navbar, ModalController, Tabs } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Navbar, ModalController, Tabs, App } from 'ionic-angular';
 import { TabNotifierProvider } from '../../providers/tab-notifier/tab-notifier';
 
 /**
@@ -35,6 +35,7 @@ export class AssetTabsPage {
     public modalCtrl: ModalController,
     private setTitleP: SetTitleProvider,
     private tabNotifier: TabNotifierProvider,
+    public app: App
     ) {
   }
 
@@ -62,9 +63,9 @@ export class AssetTabsPage {
     this.tabNotifier.notify(tab.tabTitle);
   }
 
-  home() {
-    this.navCtrl.popTo(AssetsPage);
-  }
+  // home() {
+  //   this.navCtrl.popTo(AssetsPage);
+  // }
 
   dashboard() {
     this.navCtrl.popTo(HomePage);
@@ -84,7 +85,7 @@ export class AssetTabsPage {
   }
 
   back() {
-    this.navCtrl.pop()
+    this.app.navPop()
   }
 
 

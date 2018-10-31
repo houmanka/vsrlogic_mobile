@@ -15,6 +15,11 @@
 
 
 <ion-content padding>
+    <ion-fab  bottom right  *ngIf="showToolbar === true" >
+        <button ion-fab (click)="add()">
+            <ion-icon name="add"></ion-icon>
+        </button>
+    </ion-fab>
   <ion-card *ngFor="let task of tasks">
       <ion-item>
         <h2>{{task.data.title}}</h2>

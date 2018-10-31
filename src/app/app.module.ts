@@ -1,3 +1,5 @@
+import { TaskFromPage } from './../pages/task-from/task-from';
+import { SubAssetFormPage } from './../pages/sub-asset-form/sub-asset-form';
 import { AssetFormPage } from './../pages/asset-form/asset-form';
 import { NoteFormPage } from './../pages/note-form/note-form';
 import { TruncatePipe } from './pipes/limited-to.pipe';
@@ -70,7 +72,9 @@ import { LoaderProvider } from '../providers/loader/loader';
     TruncatePipe,
     NoteFormPage,
     AutosizeDirective,
-    AssetFormPage
+    AssetFormPage,
+    SubAssetFormPage,
+    TaskFromPage,
   ],
   imports: [
     BrowserModule,
@@ -102,6 +106,8 @@ import { LoaderProvider } from '../providers/loader/loader';
     SearchPage,
     NoteFormPage,
     AssetFormPage,
+    SubAssetFormPage,
+    TaskFromPage,
   ],
   providers: [
     StatusBar,

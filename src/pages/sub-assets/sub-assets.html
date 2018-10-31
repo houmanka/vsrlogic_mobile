@@ -5,6 +5,11 @@
 </ion-header>
 
 <ion-content>
+    <ion-fab  bottom right >
+        <button ion-fab (click)="add(currentAsset)">
+            <ion-icon name="add"></ion-icon>
+        </button>
+    </ion-fab>
     <ion-list padding-top>
         <ion-item *ngIf="assets.length === 0">
             <ion-label>
@@ -12,11 +17,14 @@
               </ion-label>
         </ion-item>
         <ion-item 
-        (click)="navigate(item)"
+        
         detail lines="full" *ngFor="let item of assets" >
-          <ion-label>
+          <ion-label (click)="navigate(item)">
             {{item.asset_name}}
           </ion-label>
+          <button ion-button item-end (click)="edit(item)">
+            <ion-icon name="create"></ion-icon>
+          </button>
         </ion-item>
     </ion-list>
 </ion-content>

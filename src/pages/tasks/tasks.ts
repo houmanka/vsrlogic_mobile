@@ -1,3 +1,4 @@
+import { TaskFromPage } from './../task-from/task-from';
 import { LoaderProvider } from './../../providers/loader/loader';
 import { ApiGetProvider } from './../../providers/api-get/api-get';
 import { TaskDetailsPage } from './../task-details/task-details';
@@ -7,13 +8,6 @@ import { NotificationService } from './../../app/services/notification.service';
 import { TransfereService } from './../../app/services/transfer.service';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, Navbar } from 'ionic-angular';
-
-/**
- * Generated class for the TasksPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -107,6 +101,10 @@ export class TasksPage {
 
   back() {
     this.navCtrl.pop()
+  }
+
+  add() {
+    this.navCtrl.push(TaskFromPage);
   }
   
 

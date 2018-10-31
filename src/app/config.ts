@@ -9,7 +9,7 @@
       // const year = date.getFullYear();
       let apiUrl = '';
 
-      ENV = 'dry-run'; 
+      ENV = 'dev'; 
 
       if (ENV === 'dev') {
         apiUrl = 'http://172.21.0.8:4000';

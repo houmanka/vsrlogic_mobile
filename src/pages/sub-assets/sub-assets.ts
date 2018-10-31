@@ -1,3 +1,5 @@
+import { SubAssetFormPage } from './../sub-asset-form/sub-asset-form';
+import { AssetPostInterface } from './../../app/services/api.service';
 import { LoaderProvider } from './../../providers/loader/loader';
 import { ApiGetProvider } from './../../providers/api-get/api-get';
 import { SetTitleProvider } from './../../providers/set-title/set-title';
@@ -5,7 +7,7 @@ import { NotificationService } from './../../app/services/notification.service';
 import { TransfereService } from './../../app/services/transfer.service';
 import { UtilService } from './../../app/services/util.service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController} from 'ionic-angular';
 import { Subscription } from 'rxjs/Subscription';
 
 
@@ -35,17 +37,17 @@ export class SubAssetsPage {
     private notificationSrv: NotificationService,
     private setTitleP: SetTitleProvider,
     private loader: LoaderProvider,
+    public modalCtrl: ModalController,
+   
     ) {
   }
 
- 
-
   ionViewDidLoad(){
-    const currentAsset = this.transfereService.getData();
+    this.currentAsset = this.transfereService.getData();
     this.setTitleP.getAssetTitle('Sub Assets');
 
-    if (!UtilService.empty(currentAsset)) {
-      this.getSubAssets(currentAsset);
+    if (!UtilService.empty(this.currentAsset)) {
+      this.getSubAssets(this.currentAsset);
       this.assets = []
     }
   }
@@ -71,5 +73,35 @@ export class SubAssetsPage {
     this.setTitleP.getAssetTitle('Sub Assets');
     this.navCtrl.push(SubAssetsPage);
   }
+
+  add() {
+    let data: AssetPostInterface;
+      data = {
+        asset_id: null,
+        parent_id: this.currentAsset.asset_id,
+        asset_name: null,
+        description: null
+      }
+    this.presentFormModal({params: data});
+  }
+
+  edit(item: AssetPostInterface) {
+    this.presentFormModal({params: item});
+  }
+
+  presentFormModal(params?) {
+    let form = this.modalCtrl.create(SubAssetFormPage, params);
+    form.onDidDismiss(() => {
+      this.currentAsset = this.transfereService.getData();
+      this.setTitleP.getAssetTitle('Sub Assets');
+
+      if (!UtilService.empty(this.currentAsset)) {
+        this.getSubAssets(this.currentAsset);
+        this.assets = []
+      }
+    });
+    form.present();
+  }
+
 
 }
