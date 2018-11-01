@@ -84,5 +84,11 @@ export class ApiGetProvider {
     return this.http.get(this.apiUrl + url, headers);
   }
 
+  members(assetId) {
+    let url = `/members/asset/${assetId}`;
+    const headers = this.headers;
+    return this.http.get(this.apiUrl + url, headers);
+  }
+
 
 }

@@ -1,3 +1,7 @@
+import { UtilService } from './../../app/services/util.service';
+import { NotificationService } from './../../app/services/notification.service';
+import { LoaderProvider } from './../../providers/loader/loader';
+import { MembersProvider } from './../../providers/members/members';
 import { TransfereService } from './../../app/services/transfer.service';
 import { TaskPostInterface } from './../../app/services/api.service';
 import { Component } from '@angular/core';
@@ -19,6 +23,7 @@ export class TaskFromPage {
   max = (new Date()).getFullYear() + 5
   min = (new Date()).getFullYear() - 1
   private currentAsset;
+  public taskMembers = [];
 
   public task: TaskPostInterface = {
     name: '',
@@ -26,17 +31,30 @@ export class TaskFromPage {
     due_by: new Date().toISOString(),
     status: 'wip',
     task_id: 0,
-    asset_id: this.currentAsset
+    asset_id: this.currentAsset,
+    members: []
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private transfereService: TransfereService,
+    private memberService: MembersProvider,
+    private loader: LoaderProvider,
+    private notificationSrv: NotificationService,
     ) {
       this.currentAsset = this.transfereService.getData();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TaskFromPage');
+    // this.loader.presentLoadingDefault()
+    this.memberService.dataReady.subscribe((data: any) => {
+      this.loader.dismiss();
+      if (UtilService.empty(data)) {
+        this.notificationSrv.notify('Error', 'Something gone wrong in calling the Asset members!!');
+      } else {
+        this.taskMembers = data;
+      }
+    });
+    this.memberService.members(this.currentAsset.asset_id);
   }
 
   back() {
@@ -45,7 +63,11 @@ export class TaskFromPage {
 
   add() {
     console.log("Post data to server")
-
+      // NOTE: task.members is the collection of the index of this.taskMembers.
+      // so you need to loop through the task.members, and do 
+      // this.taskMembers[index].id which will be the member id
+      // then replace the task.members
+      // When task created, user has to get out of this view
       let date: any = this.task.due_by;
       date = date.split("T")[0]
       const res = {

@@ -82,7 +82,8 @@ export interface TaskPostInterface {
   status: string,
   due_by: string,
   task_id: 0,
-  asset_id: 0
+  asset_id: 0,
+  members: any
 }
 
 

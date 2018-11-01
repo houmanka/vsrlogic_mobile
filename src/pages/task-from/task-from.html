@@ -69,5 +69,18 @@
             </ion-item>
         </ion-list>
       
+        <ion-item>
+            <ion-label>Members</ion-label>
+            <ion-select multiple="true" [(ngModel)]="task.members"
+            [ngModelOptions]="{standalone: true}">
+              <ion-option value="{{i}}"
+              *ngFor="let member of taskMembers;let i = index"
+              >{{member.data.first_name}} {{member.data.last_name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        <ion-item *ngFor="let member of task.members">
+            {{taskMembers[member].data.first_name}} {{taskMembers[member].data.last_name}}
+        </ion-item>
+      
   </form>
 </ion-content>
