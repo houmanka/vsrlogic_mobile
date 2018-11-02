@@ -1,7 +1,6 @@
 import { TaskProvider } from './../../providers/task/task';
 import { UtilService } from './../../app/services/util.service';
 import { NotificationService } from './../../app/services/notification.service';
-import { LoaderProvider } from './../../providers/loader/loader';
 import { MembersProvider } from './../../providers/members/members';
 import { TransfereService } from './../../app/services/transfer.service';
 import { TaskPostInterface } from './../../app/services/api.service';
@@ -25,7 +24,7 @@ export class TaskFromPage {
   min = (new Date()).getFullYear() - 1
   private currentAsset;
   public taskMembers = [];
-
+  private params;
   public task: TaskPostInterface = {
     title: '',
     description: '',
@@ -39,7 +38,6 @@ export class TaskFromPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private transfereService: TransfereService,
     private memberService: MembersProvider,
-    private loader: LoaderProvider,
     private notificationSrv: NotificationService,
     private taskSrv: TaskProvider,
     
@@ -50,7 +48,6 @@ export class TaskFromPage {
   ionViewDidLoad() {
     
     this.taskSrv.taskCreated.subscribe( (res: any) => {
-      this.dismissLoader();
       if (res === true) {
         this.notificationSrv.notify("Success", "Task Created!", null, "toast");
         const currentAsset = this.transfereService.getData();
@@ -62,14 +59,36 @@ export class TaskFromPage {
     });
 
     this.memberService.dataReady.subscribe((data: any) => {
-      this.dismissLoader();
       if (UtilService.empty(data)) {
         this.notificationSrv.notify('Error', 'Something gone wrong in calling the Asset members!!');
       } else {
         this.taskMembers = data;
       }
     });
-    this.memberService.members(this.currentAsset.asset_id);
+
+    this.taskSrv.taskMembersReady.subscribe( (res: any) => {
+
+    });
+
+
+    this.params = this.navParams.get('params');
+    if(UtilService.empty(this.params)) {
+      this.memberService.members(this.currentAsset.asset_id);
+    } else {
+      // call the task members
+      this.taskMembers = this.taskSrv.taskMembers(this.params.id)
+      this.task = {
+        title: this.params.data.name,
+        description: this.params.data.description,
+        due_by: this.params.data.due_by,
+        asset_id:  this.params.data.asset_id,
+        task_id: this.params.id,
+        status: this.params.data.status,
+        members: []
+      }
+      this.memberService.members(this.currentAsset.asset_id);
+    }
+    
   }
 
   back() {
@@ -78,7 +97,6 @@ export class TaskFromPage {
 
   add() {
     const data: TaskPostInterface = this.prepareData();
-    this.loader.presentLoadingDefault();
     this.taskSrv.createTask(data);   
   }
 
@@ -98,12 +116,6 @@ export class TaskFromPage {
       status: this.task.status,
       members: members
     };
-  }
-
-  dismissLoader() {
-    if(!UtilService.empty(this.loader)) {
-      this.loader.dismiss();
-    }
   }
 
 }

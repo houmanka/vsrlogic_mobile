@@ -17,6 +17,7 @@ export class TaskProvider {
   public globalTaskDataReady = new Subject();
   public taskListReady = new Subject();
   public taskCreated = new Subject();
+  public taskMembersReady = new Subject();
 
   constructor(
     private apiSrv: ApiGetProvider,
@@ -54,6 +55,17 @@ export class TaskProvider {
     }, (error) => {
       this.taskCreated.next({error: error})
     })
+  }
+
+  taskMembers(taskId): any {
+    this.loader.presentLoadingDefault();
+    this.apiSrv.taskMembers(taskId).subscribe( (res: any) => {
+      this.loader.dismiss();
+      this.taskMembersReady.next(res);
+    }, () => {
+      this.loader.dismiss();
+      this.taskMembersReady.next([]);
+    });
   }
 
 }

@@ -87,4 +87,8 @@ export class TasksPage {
     this.navCtrl.push(TaskFromPage);
   }
 
+  edit(task) {
+    this.navCtrl.push(TaskFromPage, {params: task});
+  }
+
 }

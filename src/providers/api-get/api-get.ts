@@ -90,5 +90,11 @@ export class ApiGetProvider {
     return this.http.get(this.apiUrl + url, headers);
   }
 
+  taskMembers(taskId) {
+    let url = `/tasks/${taskId}/members`;
+    const headers = this.headers;
+    return this.http.get(this.apiUrl + url, headers);
+  }
+
 
 }
