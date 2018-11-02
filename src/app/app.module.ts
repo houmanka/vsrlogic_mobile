@@ -50,6 +50,7 @@ import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { ApiDeleteProvider } from '../providers/api-delete/api-delete';
 import { LoaderProvider } from '../providers/loader/loader';
 import { MembersProvider } from '../providers/members/members';
+import { TaskProvider } from '../providers/task/task';
 
 @NgModule({
   declarations: [
@@ -131,7 +132,8 @@ import { MembersProvider } from '../providers/members/members';
     AndroidPermissions,
     ApiDeleteProvider,
     LoaderProvider,
-    MembersProvider
+    MembersProvider,
+    TaskProvider
   ]
 })
 export class AppModule {}

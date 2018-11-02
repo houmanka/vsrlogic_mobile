@@ -1,3 +1,4 @@
+import { TaskProvider } from './../../providers/task/task';
 import { UtilService } from './../../app/services/util.service';
 import { NotificationService } from './../../app/services/notification.service';
 import { LoaderProvider } from './../../providers/loader/loader';
@@ -26,7 +27,7 @@ export class TaskFromPage {
   public taskMembers = [];
 
   public task: TaskPostInterface = {
-    name: '',
+    title: '',
     description: '',
     due_by: new Date().toISOString(),
     status: 'wip',
@@ -40,14 +41,28 @@ export class TaskFromPage {
     private memberService: MembersProvider,
     private loader: LoaderProvider,
     private notificationSrv: NotificationService,
+    private taskSrv: TaskProvider,
+    
     ) {
       this.currentAsset = this.transfereService.getData();
   }
 
   ionViewDidLoad() {
-    // this.loader.presentLoadingDefault()
+    
+    this.taskSrv.taskCreated.subscribe( (res: any) => {
+      this.dismissLoader();
+      if (res === true) {
+        this.notificationSrv.notify("Success", "Task Created!", null, "toast");
+        const currentAsset = this.transfereService.getData();
+        this.taskSrv.assetTasks(currentAsset);
+        this.navCtrl.pop();
+      } else {
+        this.notificationSrv.notify('Danger', res.error);
+      }
+    });
+
     this.memberService.dataReady.subscribe((data: any) => {
-      this.loader.dismiss();
+      this.dismissLoader();
       if (UtilService.empty(data)) {
         this.notificationSrv.notify('Error', 'Something gone wrong in calling the Asset members!!');
       } else {
@@ -62,23 +77,33 @@ export class TaskFromPage {
   }
 
   add() {
-    console.log("Post data to server")
-      // NOTE: task.members is the collection of the index of this.taskMembers.
-      // so you need to loop through the task.members, and do 
-      // this.taskMembers[index].id which will be the member id
-      // then replace the task.members
-      // When task created, user has to get out of this view
-      let date: any = this.task.due_by;
-      date = date.split("T")[0]
-      const res = {
-        title: this.task.name,
-        description: this.task.description,
-        due_by: date,
-        asset_id: this.currentAsset,
-        task_id: null,
-        status: this.task.status
-      };
-      console.log(res)
+    const data: TaskPostInterface = this.prepareData();
+    this.loader.presentLoadingDefault();
+    this.taskSrv.createTask(data);   
+  }
+
+  private prepareData(): TaskPostInterface {
+    let date: any = this.task.due_by;
+    date = date.split("T")[0]
+    const members = []
+    this.task.members.forEach( memberIndex => {
+      members.push(this.taskMembers[memberIndex].id)
+    });
+    return {
+      title: this.task.title,
+      description: this.task.description,
+      due_by: date,
+      asset_id: this.currentAsset.asset_id,
+      task_id: null,
+      status: this.task.status,
+      members: members
+    };
+  }
+
+  dismissLoader() {
+    if(!UtilService.empty(this.loader)) {
+      this.loader.dismiss();
+    }
   }
 
 }

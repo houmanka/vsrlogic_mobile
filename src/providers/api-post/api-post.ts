@@ -1,5 +1,5 @@
 import { APPCONFIG } from './../../app/config';
-import { DataStructure, ApiService, ChecklistInterface, NoteInterface, AssetPostInterface } from './../../app/services/api.service';
+import { DataStructure, ApiService, ChecklistInterface, NoteInterface, AssetPostInterface, TaskPostInterface } from './../../app/services/api.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -53,6 +53,12 @@ export class ApiPostProvider {
     const url = `/assets/${data.asset_id}`;
     return this.http.put(this.apiUrl + url, data, headers);
   } 
+
+  createTask(data: TaskPostInterface) {
+    const headers = this.headers;
+    const url = `/tasks`;
+    return this.http.post(this.apiUrl + url, data, headers);
+}
 
 }
 

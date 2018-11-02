@@ -1,10 +1,7 @@
+import { TaskProvider } from './../../providers/task/task';
 import { TaskFromPage } from './../task-from/task-from';
-import { LoaderProvider } from './../../providers/loader/loader';
-import { ApiGetProvider } from './../../providers/api-get/api-get';
 import { TaskDetailsPage } from './../task-details/task-details';
-import { Subscription } from 'rxjs/Subscription';
 import { UtilService } from './../../app/services/util.service';
-import { NotificationService } from './../../app/services/notification.service';
 import { TransfereService } from './../../app/services/transfer.service';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, Navbar } from 'ionic-angular';
@@ -17,21 +14,26 @@ import { IonicPage, NavController, NavParams, ModalController, Navbar } from 'io
 export class TasksPage {
   public title;
   public tasks = [];
-  private tasksSub = new Subscription();
   public showToolbar = true;
   @ViewChild (Navbar) navBar : Navbar; // add this line
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private transfereService: TransfereService,
-    private apiSrv: ApiGetProvider,
-    private notificationSrv: NotificationService,
+    private taskSrv: TaskProvider,
     public modalCtrl: ModalController,
-    private loader: LoaderProvider,
     ) {
   }
 
   ionViewDidLoad() {
+    this.taskSrv.globalTaskDataReady.subscribe( (res: any) => {
+      this.tasks = res;
+    });
+
+    this.taskSrv.taskListReady.subscribe( (res: any) => {
+      this.tasks = res;
+    });
+
     const params = this.navParams.get('params');
     if (!UtilService.empty(params) && params.root === true) {
       this.showToolbar = false;
@@ -40,8 +42,6 @@ export class TasksPage {
     } else {
       const currentAsset = this.transfereService.getData();
       this.title = UtilService.setTitle(currentAsset, 'Sub Assets');
-
-      // this.transfereService.clearData();
       if (!UtilService.empty(currentAsset)) {
         this.getTasks(currentAsset);
         this.tasks = []
@@ -50,30 +50,11 @@ export class TasksPage {
   }
 
   private getTasks(item?) {
-    this.loader.presentLoadingDefault();
     if (UtilService.empty(item)) {
-      this.tasksSub = this.apiSrv.globalTasks().subscribe( (res: any) => {
-        this.tasks = res;
-        this.loader.dismiss();
-      },
-      (error) => {
-        this.loader.dismiss();
-        this.notificationSrv.notify('Error', error);
-      });
+      this.taskSrv.globalTasks();
     } else {
-      this.tasksSub = this.apiSrv.assetTasks(item).subscribe( (res: any) => {
-        this.tasks = res;
-        this.loader.dismiss();      
-      },
-      (error) => {
-        this.loader.dismiss();
-        this.notificationSrv.notify('Error', error);
-      });
+      this.taskSrv.assetTasks(item);
     }
-  }
-
-  ionViewDidLeave(){
-    this.tasksSub.unsubscribe();
   }
 
   cssClass(status) {
@@ -91,7 +72,6 @@ export class TasksPage {
 
   navigate(task) {
     let profileModal: any = this.presentTaskDetailsModal(task);
-    // this.navCtrl.push(TaskDetailsPage, {params: task});
     profileModal.present();
   }
 
@@ -106,6 +86,5 @@ export class TasksPage {
   add() {
     this.navCtrl.push(TaskFromPage);
   }
-  
 
 }
