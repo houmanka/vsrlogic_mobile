@@ -12,7 +12,7 @@
       ENV = 'dev'; 
 
       if (ENV === 'dev') {
-        apiUrl = 'http://172.21.0.8:4000';
+        apiUrl = 'http://mock.vsrlogic.com';
       } else if (ENV === 'dry-run') {
         apiUrl = 'http://mock.vsrlogic.com';
       } else if (ENV === 'prod') {
